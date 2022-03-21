@@ -3,24 +3,24 @@ import { setBooks } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
-import { BookCard } from 'components';
+import { BookCard, Grid } from 'components';
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { books, loading, hasErrors } = useSelector(booksSelector);
+  const { books, loading } = useSelector(booksSelector);
 
   useEffect(() => {
     // @ts-ignore
     dispatch(setBooks());
-  }, []);
+  }, [dispatch]);
   return loading ? (
     <div>
       <h1>Loading...</h1>
     </div>
   ) : (
-    <div>
+    <Grid>
       {books.map((book) => (
         <BookCard key={book.id} book={book} mb={100} />
       ))}
-    </div>
+    </Grid>
   );
 };

@@ -7,6 +7,8 @@ export const initialState: BooksState = {
   hasErrors: false,
   errorMessage: '',
   books: [],
+  nextLink: null,
+  previousLink: null,
 };
 
 const booksSlice = createSlice({
@@ -22,6 +24,13 @@ const booksSlice = createSlice({
       state.hasErrors = false;
       state.errorMessage = '';
     },
+    setLinks: (
+      state,
+      action: PayloadAction<{ next: string; previous: string }>
+    ) => {
+      state.nextLink = action.payload.next;
+      state.previousLink = action.payload.previous;
+    },
     setErrorMessage: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.hasErrors = true;
@@ -34,8 +43,13 @@ const booksSlice = createSlice({
   },
 });
 
-export const { isLoading, getBooksSuccess, setErrorMessage, resetErrors } =
-  booksSlice.actions;
+export const {
+  isLoading,
+  getBooksSuccess,
+  setLinks,
+  setErrorMessage,
+  resetErrors,
+} = booksSlice.actions;
 
 export const booksSelector = (state: RootState) => state.books;
 

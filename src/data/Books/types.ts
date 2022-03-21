@@ -18,4 +18,6 @@ export type BooksState = {
   hasErrors: boolean;
   errorMessage: string;
   books: BookType[];
+  nextLink: string | null;
+  previousLink: string | null;
 };
