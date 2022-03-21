@@ -1,8 +1,12 @@
 import { api } from './';
 
-export const getBooks = async (): Promise<any> => {
+export const getBooks = async (page?: string): Promise<any> => {
   try {
-    const res = await api.get('library/books');
+    let url = 'library/books/';
+    if (page) {
+      url = url + `?page=${page}`;
+    }
+    const res = await api.get(url);
     console.log({ res });
     return res;
   } catch (e) {

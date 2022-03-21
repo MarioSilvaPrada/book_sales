@@ -30,7 +30,9 @@ export const BookDetail = () => {
         alt='capa'
         style={{ width: '12rem', marginRight: '2rem' }}
       />
-      <img src={info.back} alt='contra-capa' style={{ width: '12rem' }} />
+      {info.back && (
+        <img src={info.back} alt='contra-capa' style={{ width: '12rem' }} />
+      )}
       <p>Editora: {info.publisher}</p>
       <p>Número de páginas: {info.pages}</p>
       {info.year && <p>Ano: {info.year}</p>}

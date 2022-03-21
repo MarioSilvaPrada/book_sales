@@ -16,7 +16,7 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
   return (
     <S.StyledLink
       to={{
-        pathname: `book/${book.id}`,
+        pathname: `/book/${book.id}`,
       }}
     >
       <S.Container {...props}>

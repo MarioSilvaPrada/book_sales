@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../';
-import { BooksState, BookType } from './types';
+import { BooksState, BookType, ResponseType } from './types';
 export const initialState: BooksState = {
   loading: false,
   hasErrors: false,
@@ -9,6 +9,7 @@ export const initialState: BooksState = {
   books: [],
   nextLink: null,
   previousLink: null,
+  count: 0,
 };
 
 const booksSlice = createSlice({
@@ -18,18 +19,14 @@ const booksSlice = createSlice({
     isLoading: (state, action) => {
       state.loading = action.payload;
     },
-    getBooksSuccess: (state, action: PayloadAction<BookType[]>) => {
-      state.books = action.payload;
+    getBooksSuccess: (state, action: PayloadAction<ResponseType>) => {
+      state.books = action.payload.results;
+      state.nextLink = action.payload.next;
+      state.previousLink = action.payload.previous;
+      state.count = action.payload.count;
       state.loading = false;
       state.hasErrors = false;
       state.errorMessage = '';
-    },
-    setLinks: (
-      state,
-      action: PayloadAction<{ next: string; previous: string }>
-    ) => {
-      state.nextLink = action.payload.next;
-      state.previousLink = action.payload.previous;
     },
     setErrorMessage: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -43,13 +40,8 @@ const booksSlice = createSlice({
   },
 });
 
-export const {
-  isLoading,
-  getBooksSuccess,
-  setLinks,
-  setErrorMessage,
-  resetErrors,
-} = booksSlice.actions;
+export const { isLoading, getBooksSuccess, setErrorMessage, resetErrors } =
+  booksSlice.actions;
 
 export const booksSelector = (state: RootState) => state.books;
 

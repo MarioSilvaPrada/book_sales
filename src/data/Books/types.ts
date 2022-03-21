@@ -20,4 +20,12 @@ export type BooksState = {
   books: BookType[];
   nextLink: string | null;
   previousLink: string | null;
+  count: number;
+};
+
+export type ResponseType = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: BookType[];
 };
