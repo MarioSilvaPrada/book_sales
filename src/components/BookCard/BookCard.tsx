@@ -6,6 +6,7 @@ import {
   FlexboxProps,
 } from 'styled-system';
 import { BookType } from 'data/Books/types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import * as S from './style';
 interface IProps extends PositionProps, LayoutProps, SpaceProps, FlexboxProps {
@@ -20,7 +21,13 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
       }}
     >
       <S.Container {...props}>
-        <S.Cover src={book.cover} />
+        <LazyLoadImage
+          alt='capa'
+          height={426}
+          src={book.cover} // use normal <img> attributes as props
+          width={320}
+        />
+        {/* <S.Cover src={book.cover} /> */}
         <p>{book.title}</p>
       </S.Container>
     </S.StyledLink>
