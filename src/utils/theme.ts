@@ -4,4 +4,7 @@ export const theme = {
     secondary: '#393E46',
     background: { dark: '#222831', light: '#EEEEEE' },
   },
+  dimensions: {
+    maxWidth: '100rem',
+  },
 };

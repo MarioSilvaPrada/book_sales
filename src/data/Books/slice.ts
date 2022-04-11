@@ -7,6 +7,7 @@ export const initialState: BooksState = {
   hasErrors: false,
   errorMessage: '',
   books: [],
+  bookDetail: null,
   nextLink: null,
   previousLink: null,
   count: 0,
@@ -19,14 +20,19 @@ const booksSlice = createSlice({
     isLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setBookCount: (state, action: PayloadAction<number>) => {
+      state.count = action.payload;
+    },
     getBooksSuccess: (state, action: PayloadAction<ResponseType>) => {
       state.books = action.payload.results;
       state.nextLink = action.payload.next;
       state.previousLink = action.payload.previous;
-      state.count = action.payload.count;
       state.loading = false;
       state.hasErrors = false;
       state.errorMessage = '';
+    },
+    setBookDetail: (state, action: PayloadAction<BookType | null>) => {
+      state.bookDetail = action.payload;
     },
     setErrorMessage: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -40,8 +46,14 @@ const booksSlice = createSlice({
   },
 });
 
-export const { isLoading, getBooksSuccess, setErrorMessage, resetErrors } =
-  booksSlice.actions;
+export const {
+  isLoading,
+  getBooksSuccess,
+  setErrorMessage,
+  resetErrors,
+  setBookDetail,
+  setBookCount,
+} = booksSlice.actions;
 
 export const booksSelector = (state: RootState) => state.books;
 

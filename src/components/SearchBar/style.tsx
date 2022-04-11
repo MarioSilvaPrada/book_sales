@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { Box } from 'components';
 
-export const Container = styled(Box)`
-  margin-top: 1rem;
-`;
+export const Container = styled(Box)``;
 
 export const StyledForm = styled.form`
   position: relative;
@@ -19,6 +17,7 @@ export const SearchInput = styled.input`
   border: 0.1rem solid ${({ theme }) => theme.colors.background.dark};
   border-radius: 0.5rem;
   width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 export const Submit = styled.input`

@@ -18,6 +18,7 @@ export type BooksState = {
   hasErrors: boolean;
   errorMessage: string;
   books: BookType[];
+  bookDetail: BookType | null;
   nextLink: string | null;
   previousLink: string | null;
   count: number;

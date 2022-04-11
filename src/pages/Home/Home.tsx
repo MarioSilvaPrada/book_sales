@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
-import { BookCard, Grid, Pagination, SearchBar } from 'components';
+import { BookCard, Grid, Pagination, ScreenTemplate } from 'components';
 export const Home = () => {
   const dispatch = useAppDispatch();
   const { page } = useParams();
-  const { books, count, loading } = useSelector(booksSelector);
+  const { books, loading } = useSelector(booksSelector);
 
   useEffect(() => {
     if (page) {
@@ -17,28 +17,18 @@ export const Home = () => {
     }
     dispatch(setBooks());
   }, [page, dispatch]);
-  return loading ? (
-    <div>
-      <h1>Loading...</h1>
-    </div>
-  ) : (
-    <>
-      <SearchBar />
-      <Pagination
-        total={count}
-        numPerFetch={40}
-        currentPage={Number(page) || 1}
-      />
+  return (
+    <ScreenTemplate
+      isLoading={loading}
+      currentPage={page}
+      hasPagination
+      searchActive
+    >
       <Grid>
         {books.map((book) => (
-          <BookCard key={book.id} book={book} mb={100} />
+          <BookCard key={book.id} book={book} />
         ))}
       </Grid>
-      <Pagination
-        total={count}
-        numPerFetch={40}
-        currentPage={Number(page) || 1}
-      />
-    </>
+    </ScreenTemplate>
   );
 };

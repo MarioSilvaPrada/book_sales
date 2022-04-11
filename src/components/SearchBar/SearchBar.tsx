@@ -11,7 +11,9 @@ export const SearchBar: FC<IProps> = () => {
 
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    dispatch(setBooks(undefined, search));
+    if (search) {
+      dispatch(setBooks(undefined, search));
+    }
   };
   return (
     <S.Container>

@@ -21,18 +21,15 @@ export const Pagination: FC<IProps> = ({ total, numPerFetch, currentPage }) => {
       );
     }
     setPageNumbers(newArr);
-  }, []);
+  }, [paginationNumber, currentPage]);
   return (
     <S.Container
       flexDirection='row'
       alignItems='center'
       width='auto'
-      p={20}
-      my={30}
+      p={3}
       mx={50}
-      borderRadius={50}
-      background='orange'
-      boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px'
+      mt={3}
     >
       {pageNumber}
     </S.Container>

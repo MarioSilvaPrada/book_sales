@@ -21,13 +21,7 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
       }}
     >
       <S.Container {...props}>
-        <LazyLoadImage
-          alt='capa'
-          height={426}
-          width={320}
-          src={book.cover} // use normal <img> attributes as props
-        />
-        {/* <S.Cover src={book.cover} /> */}
+        <S.LazyImage alt='capa' src={book.cover} />
         <p>{book.title}</p>
       </S.Container>
     </S.StyledLink>

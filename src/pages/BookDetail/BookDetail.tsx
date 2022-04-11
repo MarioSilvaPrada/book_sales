@@ -1,44 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { BookType } from 'data/Books/types';
-import { useParams } from 'react-router-dom';
-import { getSingleBook } from 'api/library';
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { ScreenTemplate } from 'components';
+import * as S from './BookDetail.style';
+import { getSingleBookDetails } from 'data/Books/actions';
+import { useAppDispatch } from 'store';
+import { useSelector } from 'react-redux';
+import { booksSelector } from 'data/Books/slice';
 
 export const BookDetail = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [info, setInfo] = useState<BookType | null>(null);
-
-  const setBookInformation = async (bookId: string) => {
-    const res = await getSingleBook(bookId);
-    if (res) {
-      setInfo(res);
-    }
-  };
+  const { bookDetail, loading } = useSelector(booksSelector);
 
   useEffect(() => {
     if (id) {
-      setBookInformation(id);
+      dispatch(getSingleBookDetails(id));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
-  return info !== null ? (
-    <div>
-      <h1>{info.title}</h1>
-      <p>{info.author}</p>
-      <p>Língua: {info.language}</p>
+  const onGoBack = () => {
+    navigate(-1);
+    dispatch(getSingleBookDetails(null));
+  };
+
+  return bookDetail !== null ? (
+    <ScreenTemplate>
+      <S.TopRow>
+        <S.Button onClick={onGoBack}>
+          <IoMdArrowRoundBack color='white' size='1.5rem' />
+        </S.Button>
+        <h1>{bookDetail.title}</h1>
+        <S.Placeholder />
+      </S.TopRow>
+      <p>{bookDetail.author}</p>
+      <p>Língua: {bookDetail.language}</p>
       <img
-        src={info.cover}
+        src={bookDetail.cover}
         alt='capa'
         style={{ width: '30rem', marginRight: '2rem' }}
       />
-      {info.back && (
-        <img src={info.back} alt='contra-capa' style={{ width: '30rem' }} />
+      {bookDetail.back && (
+        <img
+          src={bookDetail.back}
+          alt='contra-capa'
+          style={{ width: '30rem' }}
+        />
       )}
-      <p>Editora: {info.publisher}</p>
-      <p>Número de páginas: {info.pages}</p>
-      {info.year && <p>Ano: {info.year}</p>}
-      {info.collection && <p>Coleção: {info.collection}</p>}
-      <p>Preço: {info.price}€</p>
-    </div>
+      <p>Editora: {bookDetail.publisher}</p>
+      <p>Número de páginas: {bookDetail.pages}</p>
+      {bookDetail.year && <p>Ano: {bookDetail.year}</p>}
+      {bookDetail.collection && <p>Coleção: {bookDetail.collection}</p>}
+      <p>Preço: {bookDetail.price}€</p>
+    </ScreenTemplate>
   ) : (
     <div>
       <h1>No information</h1>

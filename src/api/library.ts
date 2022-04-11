@@ -1,3 +1,4 @@
+import { BookType } from 'data/Books/types';
 import { api } from './';
 
 export const getBooks = async (
@@ -20,13 +21,17 @@ export const getBooks = async (
   }
 };
 
-export const getSingleBook = async (id: string): Promise<any> => {
+export const getSingleBook = async (
+  id: string
+): Promise<string | { status: number; data: BookType }> => {
   try {
-    const res = await api.get('library/books/' + id);
-    if (res.status === 200) {
-      return res.data;
-    }
+    const { status, data } = await api.get('library/books/' + id);
+    return { status, data };
   } catch (e) {
-    console.log({ e });
+    let errorMessage = 'Failed to do something exceptional';
+    if (e instanceof Error) {
+      errorMessage = e.message;
+    }
+    return errorMessage;
   }
 };
