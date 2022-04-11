@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
-import { BookCard, Grid, Pagination } from 'components';
+import { BookCard, Grid, Pagination, SearchBar } from 'components';
 export const Home = () => {
   const dispatch = useAppDispatch();
   const { page } = useParams();
@@ -23,6 +23,7 @@ export const Home = () => {
     </div>
   ) : (
     <>
+      <SearchBar />
       <Pagination
         total={count}
         numPerFetch={40}

@@ -4,11 +4,11 @@ import { isLoading, getBooksSuccess, setErrorMessage } from './slice';
 import { getBooks } from 'api/library';
 
 export const setBooks =
-  (page?: string): AppThunk =>
-  async (dispatch) => {
+  (page?: string, search?: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
     try {
       dispatch(isLoading(true));
-      const res = await getBooks(page);
+      const res = await getBooks(page, search);
       if (res?.status === 200) {
         const { data } = res;
         dispatch(getBooksSuccess(data));

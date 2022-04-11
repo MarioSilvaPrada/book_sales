@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import './App.css';
 import { Home, BookDetail } from './pages';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

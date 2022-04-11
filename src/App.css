@@ -13,6 +13,10 @@
   }
 }
 
+textarea:focus, input:focus{
+  outline: none;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
