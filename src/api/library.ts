@@ -58,6 +58,8 @@ export const reserveBook = async (
     const { status } = await api.post('library/reservations/', params);
     return { status };
   } catch (e) {
+    //@ts-ignore
+    console.log(e.response);
     let errorMessage = 'Failed to do something exceptional';
     if (e instanceof Error) {
       errorMessage = e.message;
