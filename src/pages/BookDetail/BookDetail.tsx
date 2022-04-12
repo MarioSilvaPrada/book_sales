@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { ScreenTemplate } from 'components';
+import { ReservationForm, ScreenTemplate } from 'components';
 import * as S from './BookDetail.style';
 import { getSingleBookDetails } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
@@ -25,38 +25,39 @@ export const BookDetail = () => {
     dispatch(getSingleBookDetails(null));
   };
 
-  return bookDetail !== null ? (
-    <ScreenTemplate>
-      <S.TopRow>
-        <S.Button onClick={onGoBack}>
-          <IoMdArrowRoundBack color='white' size='1.5rem' />
-        </S.Button>
-        <h1>{bookDetail.title}</h1>
-        <S.Placeholder />
-      </S.TopRow>
-      <p>{bookDetail.author}</p>
-      <p>Língua: {bookDetail.language}</p>
-      <img
-        src={bookDetail.cover}
-        alt='capa'
-        style={{ width: '30rem', marginRight: '2rem' }}
-      />
-      {bookDetail.back && (
-        <img
-          src={bookDetail.back}
-          alt='contra-capa'
-          style={{ width: '30rem' }}
-        />
+  return (
+    <ScreenTemplate isLoading={loading}>
+      {bookDetail ? (
+        <>
+          <S.TopRow>
+            <S.Button onClick={onGoBack}>
+              <IoMdArrowRoundBack color='white' size='1.5rem' />
+            </S.Button>
+            <h1>{bookDetail.title}</h1>
+            <S.Placeholder />
+          </S.TopRow>
+          <p>{bookDetail.author}</p>
+          <p>Língua: {bookDetail.language}</p>
+          <S.StyledImg
+            src={bookDetail.cover}
+            alt='capa'
+            style={{ marginRight: '2rem' }}
+          />
+          {bookDetail.back && (
+            <S.StyledImg src={bookDetail.back} alt='contra-capa' />
+          )}
+          <p>Editora: {bookDetail.publisher}</p>
+          <p>Número de páginas: {bookDetail.pages}</p>
+          {bookDetail.year && <p>Ano: {bookDetail.year}</p>}
+          {bookDetail.collection && <p>Coleção: {bookDetail.collection}</p>}
+          <p>Preço: {bookDetail.price}€</p>
+          <ReservationForm bookId={bookDetail.id} />
+        </>
+      ) : (
+        <div>
+          <h1>No data</h1>
+        </div>
       )}
-      <p>Editora: {bookDetail.publisher}</p>
-      <p>Número de páginas: {bookDetail.pages}</p>
-      {bookDetail.year && <p>Ano: {bookDetail.year}</p>}
-      {bookDetail.collection && <p>Coleção: {bookDetail.collection}</p>}
-      <p>Preço: {bookDetail.price}€</p>
     </ScreenTemplate>
-  ) : (
-    <div>
-      <h1>No information</h1>
-    </div>
   );
 };

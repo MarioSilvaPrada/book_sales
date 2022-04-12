@@ -5,3 +5,4 @@ export { Pagination } from './Pagination/Pagination';
 export { SearchBar } from './SearchBar/SearchBar';
 export { ScreenTemplate } from './ScreenTemplate/ScreenTemplate';
 export { Spinner } from './Spinner/Spinner';
+export { ReservationForm } from './ReservationForm/ReservationForm';

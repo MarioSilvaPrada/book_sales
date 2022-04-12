@@ -35,3 +35,33 @@ export const getSingleBook = async (
     return errorMessage;
   }
 };
+
+type ErrorType = {
+  config: any;
+  data: Record<string, any>;
+  headers: Record<string, any>;
+  status: number;
+  statusText: string;
+} & Error;
+
+type ReservationsParams = {
+  book: number;
+  name: string;
+  email: string;
+  phone?: string;
+  comment?: string;
+};
+export const reserveBook = async (
+  params: ReservationsParams
+): Promise<string | { status: number }> => {
+  try {
+    const { status } = await api.post('library/reservations/', params);
+    return { status };
+  } catch (e) {
+    let errorMessage = 'Failed to do something exceptional';
+    if (e instanceof Error) {
+      errorMessage = e.message;
+    }
+    return errorMessage;
+  }
+};

@@ -38,6 +38,13 @@ export const ScreenTemplate: FC<IProps> = ({
           </S.SpinnerWrapper>
         )}
       </S.Wrapper>
+      {hasPagination && (
+        <Pagination
+          total={count}
+          numPerFetch={40}
+          currentPage={Number(currentPage) || 1}
+        />
+      )}
     </S.Background>
   );
 };
