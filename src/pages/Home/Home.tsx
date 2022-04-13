@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
-import { BookCard, Grid, Pagination, ScreenTemplate } from 'components';
+import { BookCard, Grid, ScreenTemplate } from 'components';
 export const Home = () => {
   const dispatch = useAppDispatch();
   const { page } = useParams();

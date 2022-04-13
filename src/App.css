@@ -13,6 +13,14 @@
   }
 }
 
+textarea, input {
+  font-family: 'Poppins', sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
 textarea:focus, input:focus{
   outline: none;
 }

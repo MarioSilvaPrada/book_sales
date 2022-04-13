@@ -22,7 +22,7 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
     >
       <S.Container {...props}>
         <S.LazyImage alt='capa' src={book.cover} />
-        <p>{book.title}</p>
+        <p>{book.title.toUpperCase()}</p>
       </S.Container>
     </S.StyledLink>
   );

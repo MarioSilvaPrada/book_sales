@@ -1,5 +1,6 @@
 import { BookType } from 'data/Books/types';
 import { api } from './';
+import axios, { Axios, AxiosResponse, AxiosError } from 'axios';
 
 export const getBooks = async (
   page?: string,
@@ -14,7 +15,6 @@ export const getBooks = async (
       url = url + `?search=${search}`;
     }
     const res = await api.get(url);
-    console.log({ res });
     return res;
   } catch (e) {
     console.log({ e });
@@ -36,15 +36,7 @@ export const getSingleBook = async (
   }
 };
 
-type ErrorType = {
-  config: any;
-  data: Record<string, any>;
-  headers: Record<string, any>;
-  status: number;
-  statusText: string;
-} & Error;
-
-type ReservationsParams = {
+export type ReservationsParams = {
   book: number;
   name: string;
   email: string;
@@ -53,17 +45,19 @@ type ReservationsParams = {
 };
 export const reserveBook = async (
   params: ReservationsParams
-): Promise<string | { status: number }> => {
+): Promise<{ status: number } | AxiosError | string> => {
   try {
     const { status } = await api.post('library/reservations/', params);
     return { status };
-  } catch (e) {
-    //@ts-ignore
-    console.log(e.response);
-    let errorMessage = 'Failed to do something exceptional';
-    if (e instanceof Error) {
-      errorMessage = e.message;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err;
     }
-    return errorMessage;
+
+    if (err instanceof Error) {
+      return err.message;
+    }
+
+    return 'Something went wrong';
   }
 };

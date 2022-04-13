@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { ReservationForm, ScreenTemplate } from 'components';
+import { Box, ReservationForm, ScreenTemplate } from 'components';
 import * as S from './BookDetail.style';
 import { getSingleBookDetails } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
@@ -25,6 +25,29 @@ export const BookDetail = () => {
     dispatch(getSingleBookDetails(null));
   };
 
+  const infoDetails = [
+    {
+      description: 'Autor',
+      text: bookDetail?.author,
+    },
+    {
+      description: 'Editora',
+      text: bookDetail?.publisher,
+    },
+    {
+      description: 'Ano de publicação',
+      text: bookDetail?.year,
+    },
+    {
+      description: 'Coleção',
+      text: bookDetail?.collection,
+    },
+    {
+      description: 'Preço',
+      text: `${bookDetail?.price}€`,
+    },
+  ];
+
   return (
     <ScreenTemplate isLoading={loading}>
       {bookDetail ? (
@@ -33,29 +56,50 @@ export const BookDetail = () => {
             <S.Button onClick={onGoBack}>
               <IoMdArrowRoundBack color='white' size='1.5rem' />
             </S.Button>
-            <h1>{bookDetail.title}</h1>
+            <h1>{bookDetail.title.toUpperCase()}</h1>
             <S.Placeholder />
           </S.TopRow>
-          <p>{bookDetail.author}</p>
-          <p>Língua: {bookDetail.language}</p>
-          <S.StyledImg
-            src={bookDetail.cover}
-            alt='capa'
-            style={{ marginRight: '2rem' }}
-          />
-          {bookDetail.back && (
-            <S.StyledImg src={bookDetail.back} alt='contra-capa' />
-          )}
-          <p>Editora: {bookDetail.publisher}</p>
-          <p>Número de páginas: {bookDetail.pages}</p>
-          {bookDetail.year && <p>Ano: {bookDetail.year}</p>}
-          {bookDetail.collection && <p>Coleção: {bookDetail.collection}</p>}
-          <p>Preço: {bookDetail.price}€</p>
-          <ReservationForm bookId={bookDetail.id} />
+
+          <S.Container>
+            <S.ImageContainer>
+              <S.ImageWrapper>
+                <Box flexDirection='column'>
+                  <S.CoverWrapper>
+                    <S.StyledImg src={bookDetail.cover} alt='capa' />
+                    <h5>Capa</h5>
+                  </S.CoverWrapper>
+                </Box>
+
+                {bookDetail.back && (
+                  <Box flexDirection='column'>
+                    <S.StyledImg src={bookDetail.back} alt='contra-capa' />
+                    <h5>Contracapa</h5>
+                  </Box>
+                )}
+              </S.ImageWrapper>
+            </S.ImageContainer>
+            <S.InfoWrapper>
+              <S.DetailsTitle>Detalhes do livro:</S.DetailsTitle>
+              {infoDetails.map(({ text, description }) => {
+                if (!!text) {
+                  return (
+                    <S.InfoRow key={description}>
+                      <h4>{description}: </h4>
+                      <S.StyledText>{text}</S.StyledText>
+                    </S.InfoRow>
+                  );
+                }
+              })}
+
+              <S.ReservationContainer>
+                <ReservationForm bookId={bookDetail.id} />
+              </S.ReservationContainer>
+            </S.InfoWrapper>
+          </S.Container>
         </>
       ) : (
         <div>
-          <h1>No data</h1>
+          <h1>Livro não encontrado</h1>
         </div>
       )}
     </ScreenTemplate>
