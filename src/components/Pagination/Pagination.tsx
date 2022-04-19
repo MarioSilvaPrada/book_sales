@@ -16,7 +16,7 @@ export const Pagination: FC<IProps> = ({ total, numPerFetch, currentPage }) => {
       const num = i + 1;
       newArr.push(
         <S.StyledLink key={i} to={`/${num}`} selected={num === currentPage}>
-          {num}
+          <S.StyledNumber>{num}</S.StyledNumber>
         </S.StyledLink>
       );
     }

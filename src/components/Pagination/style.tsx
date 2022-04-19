@@ -7,14 +7,21 @@ const selectedStyle = css`
   border-radius: 50%;
 `;
 export const Container = styled(Box)`
-  background: ${({ theme }) => theme.colors.main};
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
 `;
 export const StyledLink = styled(Link)<{ selected: boolean }>`
   text-decoration: none;
   color: black;
-  padding: 0.5rem 0.8rem;
-  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: ${({ selected }) => (selected ? 'white' : 'black')};
   ${({ selected }) => selected && selectedStyle}
 `;
+
+export const StyledNumber = styled.span``;
