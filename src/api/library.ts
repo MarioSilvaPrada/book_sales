@@ -1,6 +1,6 @@
 import { BookType } from 'data/Books/types';
 import { api } from './';
-import axios, { Axios, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export const getBooks = async (
   page?: string,

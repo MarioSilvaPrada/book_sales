@@ -4,7 +4,6 @@ import { useAppDispatch } from 'store';
 import { sendReservation } from 'data/Reservations/action';
 import { useSelector } from 'react-redux';
 import { reservationSelector } from 'data/Reservations/slice';
-
 type IProps = {
   bookId: number;
 };
