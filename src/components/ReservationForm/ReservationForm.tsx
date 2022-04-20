@@ -1,7 +1,5 @@
-import { reserveBook } from 'api/library';
 import { ChangeEvent, useState, SyntheticEvent, FC, useEffect } from 'react';
 import * as S from './ReservationForm.style';
-import axios from 'axios';
 import { useAppDispatch } from 'store';
 import { sendReservation } from 'data/Reservations/action';
 import { useSelector } from 'react-redux';
@@ -19,8 +17,7 @@ const initialForm = {
 };
 export const ReservationForm: FC<IProps> = ({ bookId }) => {
   const dispatch = useAppDispatch();
-  const { hasErrors, errorMessage, isSuccessful, loading } =
-    useSelector(reservationSelector);
+  const { isSuccessful } = useSelector(reservationSelector);
 
   const [form, setForm] = useState({
     ...initialForm,

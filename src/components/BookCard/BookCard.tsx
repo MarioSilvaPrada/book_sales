@@ -6,7 +6,6 @@ import {
   FlexboxProps,
 } from 'styled-system';
 import { BookType } from 'data/Books/types';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import * as S from './style';
 interface IProps extends PositionProps, LayoutProps, SpaceProps, FlexboxProps {
