@@ -5,6 +5,12 @@
   force = true
 
 [[redirects]]
+  from = "/book/*"
+  to = "http://homeserver.mariosilvaprada.com/library/books/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
