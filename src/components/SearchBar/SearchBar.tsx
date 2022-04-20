@@ -3,12 +3,10 @@ import { FC, useState, SyntheticEvent } from 'react';
 import { useAppDispatch } from 'store';
 import * as S from './style';
 import { BsSearch } from 'react-icons/bs';
-import { useSearchParams } from 'react-router-dom';
 
 type IProps = {};
 export const SearchBar: FC<IProps> = () => {
   const dispatch = useAppDispatch();
-  let [searchParams, setSearchParams] = useSearchParams();
 
   const [search, setSearch] = useState('');
 
