@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/library/*"
-  to = "http://homeserver.mariosilvaprada.com/library/:splat"
+  to = "http://homeserver.mariosilvaprada.com/library/"
   status = 200
   force = true
 
