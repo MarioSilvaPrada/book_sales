@@ -89,6 +89,7 @@ export const BookDetail = () => {
                     </S.InfoRow>
                   );
                 }
+                return null;
               })}
 
               <S.ReservationContainer>
