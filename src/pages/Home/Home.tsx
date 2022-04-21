@@ -18,7 +18,6 @@ export const Home = () => {
     dispatch(setBooks());
   }, [page, dispatch]);
 
-  console.log({ books });
   return (
     <ScreenTemplate
       isLoading={loading}
