@@ -16,10 +16,9 @@ export const Home = () => {
       return;
     }
     dispatch(setBooks());
+  }, [page, dispatch]);
 
-    console.log({ books });
-  }, [page, dispatch, books]);
-
+  console.log({ books });
   return (
     <ScreenTemplate
       isLoading={loading}
