@@ -1,7 +1,6 @@
 [[redirects]]
   from = "/library/*"
   to = "http://homeserver.mariosilvaprada.com/library/:splat"
-  query = {path = ":path"}
   status = 200
   force = true
 
