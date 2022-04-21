@@ -51,6 +51,10 @@ export const CoverWrapper = styled.div`
 export const StyledImg = styled.img`
   width: 21rem;
   border-radius: 0.5rem;
+
+  @media (max-width: 490px) {
+    width: 100%;
+  }
 `;
 
 export const InfoRow = styled.div`

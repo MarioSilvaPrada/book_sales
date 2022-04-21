@@ -20,7 +20,7 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
       }}
     >
       <S.Container {...props}>
-        <S.LazyImage alt='capa' src={book.cover} />
+        <S.LazyImage alt='capa' src={book.cover} effect='blur' />
         <p>{book.title.toUpperCase()}</p>
       </S.Container>
     </S.StyledLink>
