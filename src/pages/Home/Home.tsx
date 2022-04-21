@@ -16,7 +16,10 @@ export const Home = () => {
       return;
     }
     dispatch(setBooks());
-  }, [page, dispatch]);
+
+    console.log({ books });
+  }, [page, dispatch, books]);
+
   return (
     <ScreenTemplate
       isLoading={loading}
@@ -25,9 +28,11 @@ export const Home = () => {
       searchActive
     >
       <Grid>
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
+        {books ? (
+          books.map((book) => <BookCard key={book.id} book={book} />)
+        ) : (
+          <h1>Nothing</h1>
+        )}
       </Grid>
     </ScreenTemplate>
   );
