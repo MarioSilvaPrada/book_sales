@@ -23,14 +23,22 @@ const reservationSlice = createSlice({
       state.hasErrors = true;
       state.errorMessage = action.payload;
     },
+    resetErrors: (state) => {
+      state.hasErrors = false;
+      state.errorMessage = '';
+    },
     setReservationHasDone: (state) => {
       state.isSuccessful = true;
     },
   },
 });
 
-export const { isLoading, setReservationError, setReservationHasDone } =
-  reservationSlice.actions;
+export const {
+  isLoading,
+  setReservationError,
+  setReservationHasDone,
+  resetErrors,
+} = reservationSlice.actions;
 
 export const reservationSelector = (state: RootState) => state.reservations;
 

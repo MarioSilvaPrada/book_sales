@@ -1,6 +1,6 @@
 import { BookType } from 'data/Books/types';
-import { api } from './';
-import axios, { AxiosError } from 'axios';
+import { api, handleErrorResponse } from './';
+import { AxiosError } from 'axios';
 
 export const getBooks = async (
   page?: string,
@@ -17,7 +17,11 @@ export const getBooks = async (
     const res = await api.get(url);
     return res;
   } catch (e) {
-    console.log({ e });
+    let errorMessage = 'Failed to do something exceptional';
+    if (e instanceof Error) {
+      errorMessage = e.message;
+    }
+    return errorMessage;
   }
 };
 
@@ -50,14 +54,6 @@ export const reserveBook = async (
     const { status } = await api.post('library/reservations/', params);
     return { status };
   } catch (err) {
-    if (axios.isAxiosError(err)) {
-      return err;
-    }
-
-    if (err instanceof Error) {
-      return err.message;
-    }
-
-    return 'Something went wrong';
+    return handleErrorResponse(err);
   }
 };

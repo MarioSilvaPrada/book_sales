@@ -16,7 +16,8 @@ const initialForm = {
 };
 export const ReservationForm: FC<IProps> = ({ bookId }) => {
   const dispatch = useAppDispatch();
-  const { isSuccessful } = useSelector(reservationSelector);
+  const { isSuccessful, errorMessage, loading } =
+    useSelector(reservationSelector);
 
   const [form, setForm] = useState({
     ...initialForm,
@@ -43,6 +44,23 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
     }
   }, [isSuccessful]);
 
+  const validate = (key: string) => {
+    if (typeof errorMessage !== 'string') {
+      return key in errorMessage.data;
+    }
+    return false;
+  };
+
+  const getSubmitValue = () => {
+    if (loading) {
+      return 'A enviar mensagem...';
+    }
+    if (isSuccessful) {
+      return 'A sua mensagem foi enviada com sucesso';
+    }
+    return 'Reservar';
+  };
+
   return (
     <S.Container>
       <S.Note>
@@ -54,23 +72,30 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
           value={form.name}
           onChange={(e) => onChangeText(e, 'name')}
           placeholder='O seu Nome *'
+          isInvalid={validate('name')}
         />
         <S.StyledInput
           value={form.email}
           onChange={(e) => onChangeText(e, 'email')}
           placeholder='E-mail *'
+          isInvalid={validate('email')}
         />
         <S.StyledInput
           value={form.phone}
           onChange={(e) => onChangeText(e, 'phone')}
           placeholder='Contacto telefónico'
+          isInvalid={validate('phone')}
         />
         <S.TextArea
           value={form.comment}
           onChange={(e) => onChangeText(e, 'comment')}
           placeholder='Comentário'
         />
-        <S.Submit type='submit' value='Reservar' />
+        <S.Submit
+          isSuccessful={isSuccessful}
+          type='submit'
+          value={getSubmitValue()}
+        />
       </S.StyledForm>
     </S.Container>
   );
