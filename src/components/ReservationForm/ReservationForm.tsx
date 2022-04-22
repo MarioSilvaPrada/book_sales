@@ -64,7 +64,7 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
   return (
     <S.Container>
       <S.Note>
-        Caso queira comprar este livro, preencha os campos em baixo e entraremos
+        Caso pretenda comprar este livro, preencha os campos em baixo e entraremos
         em contacto consigo.
       </S.Note>
       <S.StyledForm onSubmit={handleSubmit}>
