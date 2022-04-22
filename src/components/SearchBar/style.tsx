@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { Box } from 'components';
 
-export const Container = styled(Box)``;
+export const Container = styled(Box)`
+  width: 100%;
+`;
 
 export const StyledForm = styled.form`
   position: relative;

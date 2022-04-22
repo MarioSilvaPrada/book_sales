@@ -4,6 +4,10 @@ export const Background = styled.div`
   padding: 2rem;
   background: ${({ theme }) => theme.colors.main};
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Wrapper = styled.div`
@@ -15,6 +19,7 @@ export const Wrapper = styled.div`
   margin-top: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 2rem;
+  width: 100%;
 `;
 
 export const SpinnerWrapper = styled.div`
