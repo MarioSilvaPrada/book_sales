@@ -21,7 +21,6 @@ export const SearchInput = styled.input`
 `;
 
 export const Submit = styled.input`
-  width: 10%;
   position: absolute;
   right: 0.2rem;
   top: 0.2rem;
@@ -31,6 +30,7 @@ export const Submit = styled.input`
   background: ${({ theme }) => theme.colors.background.dark};
   color: white;
   cursor: pointer;
+  padding: 0 0.5rem;
 `;
 
 export const IconWrapper = styled.div`

@@ -17,7 +17,7 @@ export const Note = styled.p`
   border: 1px solid ${({ theme }) => theme.colors.background.dark};
   font-weight: bold;
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border-radius: 0.5rem;
 `;
 export const StyledInput = styled.input<InputProps>`

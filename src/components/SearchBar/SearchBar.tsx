@@ -20,7 +20,7 @@ export const SearchBar: FC<IProps> = () => {
     <S.Container>
       <S.StyledForm onSubmit={handleSubmit}>
         <S.IconWrapper>
-          <BsSearch />
+          <BsSearch size={15}/>
         </S.IconWrapper>
         <S.SearchInput
           value={search}

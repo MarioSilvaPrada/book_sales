@@ -28,8 +28,3 @@ code {
   }
 }
 
-@media screen and (max-width: 350px) {
-  html {
-    font-size: 55%;
-  }
-}

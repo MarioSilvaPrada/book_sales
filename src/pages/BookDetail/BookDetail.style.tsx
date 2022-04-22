@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.colors.background.dark};
@@ -7,6 +8,12 @@ export const Button = styled.button`
   width: 3rem;
   height: 3rem;
   cursor: pointer;
+`;
+
+export const BookTitle = styled.h1`
+  @media (max-width: 920px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Container = styled.div`
@@ -48,7 +55,7 @@ export const CoverWrapper = styled.div`
   }
 `;
 
-export const StyledImg = styled.img`
+export const StyledImg = styled(LazyLoadImage)`
   width: 21rem;
   border-radius: 0.5rem;
 

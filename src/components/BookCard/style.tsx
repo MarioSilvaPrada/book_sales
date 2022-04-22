@@ -24,3 +24,10 @@ export const LazyImage = styled(LazyLoadImage)`
   border-radius: 0.5rem;
   width: 100%;
 `;
+
+export const BookTitle = styled.p`
+  font-weight: bold;
+  @media (max-width: 470px) {
+    font-size: 1.2rem;
+  }
+`;

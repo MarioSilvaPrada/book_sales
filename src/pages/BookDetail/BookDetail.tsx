@@ -7,6 +7,7 @@ import { getSingleBookDetails } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +57,7 @@ export const BookDetail = () => {
             <S.Button onClick={onGoBack}>
               <IoMdArrowRoundBack color='white' size='1.5rem' />
             </S.Button>
-            <h1>{bookDetail.title.toUpperCase()}</h1>
+            <S.BookTitle>{bookDetail.title.toUpperCase()}</S.BookTitle>
             <S.Placeholder />
           </S.TopRow>
 
@@ -65,15 +66,23 @@ export const BookDetail = () => {
               <S.ImageWrapper>
                 <Box flexDirection='column'>
                   <S.CoverWrapper>
-                    <S.StyledImg src={bookDetail.cover} alt='capa' />
-                    <h5>Capa</h5>
+                    <S.StyledImg
+                      src={bookDetail.cover}
+                      alt='capa'
+                      effect='blur'
+                    />
+                    <h3>Capa</h3>
                   </S.CoverWrapper>
                 </Box>
 
                 {bookDetail.back && (
                   <Box flexDirection='column'>
-                    <S.StyledImg src={bookDetail.back} alt='contra-capa' />
-                    <h5>Contracapa</h5>
+                    <S.StyledImg
+                      src={bookDetail.back}
+                      alt='contra-capa'
+                      effect='blur'
+                    />
+                    <h3>Contracapa</h3>
                   </Box>
                 )}
               </S.ImageWrapper>
