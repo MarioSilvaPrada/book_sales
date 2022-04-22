@@ -8,6 +8,7 @@ import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { resetForm } from 'data/Reservations/slice';
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ export const BookDetail = () => {
   const onGoBack = () => {
     navigate(-1);
     dispatch(getSingleBookDetails(null));
+    dispatch(resetForm());
   };
 
   const infoDetails = [

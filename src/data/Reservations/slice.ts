@@ -30,6 +30,11 @@ const reservationSlice = createSlice({
     setReservationHasDone: (state) => {
       state.isSuccessful = true;
     },
+    resetForm: (state) => {
+      state.isSuccessful = false;
+      state.hasErrors = false;
+      state.errorMessage = '';
+    },
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   setReservationError,
   setReservationHasDone,
   resetErrors,
+  resetForm,
 } = reservationSlice.actions;
 
 export const reservationSelector = (state: RootState) => state.reservations;
