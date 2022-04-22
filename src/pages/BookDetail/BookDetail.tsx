@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { Box, ReservationForm, ScreenTemplate } from 'components';
 import * as S from './BookDetail.style';
@@ -13,8 +13,10 @@ import { resetForm } from 'data/Reservations/slice';
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { key: keyLocation } = useLocation();
   const { id } = useParams();
   const { bookDetail, loading } = useSelector(booksSelector);
+
 
   useEffect(() => {
     if (id) {
@@ -23,7 +25,11 @@ export const BookDetail = () => {
   }, [id, dispatch]);
 
   const onGoBack = () => {
-    navigate(-1);
+    if (keyLocation === 'default') {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
     dispatch(getSingleBookDetails(null));
     dispatch(resetForm());
   };
