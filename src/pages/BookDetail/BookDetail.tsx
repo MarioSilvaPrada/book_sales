@@ -42,6 +42,10 @@ export const BookDetail = () => {
       text: bookDetail?.year,
     },
     {
+      description: 'Páginas',
+      text: bookDetail?.pages,
+    },
+    {
       description: 'Coleção',
       text: bookDetail?.collection,
     },
