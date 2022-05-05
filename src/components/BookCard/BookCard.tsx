@@ -7,7 +7,6 @@ import {
 } from 'styled-system';
 import { BookType } from 'data/Books/types';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-
 import * as S from './style';
 interface IProps extends PositionProps, LayoutProps, SpaceProps, FlexboxProps {
   book: BookType;
@@ -21,7 +20,15 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
       }}
     >
       <S.Container {...props}>
-        <S.LazyImage alt='capa' src={book.cover} effect='blur' />
+        <S.ImageWrapper>
+          {book.is_sold && (
+            <>
+              <S.SoldText>Vendido</S.SoldText>
+              <S.BlackLayer />
+            </>
+          )}
+          <S.LazyImage alt='capa' src={book.cover} effect='blur' />
+        </S.ImageWrapper>
         <S.BookTitle>{book.title.toUpperCase()}</S.BookTitle>
       </S.Container>
     </S.StyledLink>

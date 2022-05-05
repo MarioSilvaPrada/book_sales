@@ -31,3 +31,32 @@ export const BookTitle = styled.p`
     font-size: 1.2rem;
   }
 `;
+
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+export const SoldText = styled.p`
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  z-index: 2;
+  color: #f32424;
+  font-weight: bold;
+  font-size: 3rem;
+  border: 2px solid #f32424;
+  transform: rotate(-50deg);
+`;
+
+export const BlackLayer = styled.div`
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: 0.5rem;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+`;

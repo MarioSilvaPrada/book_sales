@@ -100,3 +100,15 @@ export const DetailsTitle = styled.h2`
 export const ReservationContainer = styled.div`
   margin-top: 2rem;
 `;
+
+export const SoldText = styled.p`
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  color: #f32424;
+  font-weight: bold;
+  font-size: 2.5rem;
+  border: 2px solid #f32424;
+  width: 20rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+`;

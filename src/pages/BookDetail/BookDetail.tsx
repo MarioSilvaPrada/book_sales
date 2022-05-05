@@ -17,7 +17,6 @@ export const BookDetail = () => {
   const { id } = useParams();
   const { bookDetail, loading } = useSelector(booksSelector);
 
-
   useEffect(() => {
     if (id) {
       dispatch(getSingleBookDetails(id));
@@ -73,6 +72,7 @@ export const BookDetail = () => {
             <S.Placeholder />
           </S.TopRow>
 
+          {bookDetail.is_sold && <S.SoldText>Vendido</S.SoldText>}
           <S.Container>
             <S.ImageContainer>
               <S.ImageWrapper>
@@ -113,9 +113,11 @@ export const BookDetail = () => {
                 return null;
               })}
 
-              <S.ReservationContainer>
-                <ReservationForm bookId={bookDetail.id} />
-              </S.ReservationContainer>
+              {!bookDetail.is_sold && (
+                <S.ReservationContainer>
+                  <ReservationForm bookId={bookDetail.id} />
+                </S.ReservationContainer>
+              )}
             </S.InfoWrapper>
           </S.Container>
         </>
