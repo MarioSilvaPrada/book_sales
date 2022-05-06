@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   LayoutProps,
   PositionProps,
@@ -13,6 +13,7 @@ interface IProps extends PositionProps, LayoutProps, SpaceProps, FlexboxProps {
 }
 
 export const BookCard: FC<IProps> = ({ book, ...props }) => {
+  const [imageIsReady, setImageIsReady] = useState(false);
   return (
     <S.StyledLink
       to={{
@@ -21,13 +22,18 @@ export const BookCard: FC<IProps> = ({ book, ...props }) => {
     >
       <S.Container {...props}>
         <S.ImageWrapper>
-          {book.is_sold && (
+          {book.is_sold && imageIsReady && (
             <>
               <S.SoldText>Vendido</S.SoldText>
               <S.BlackLayer />
             </>
           )}
-          <S.LazyImage alt='capa' src={book.cover} effect='blur' />
+          <S.LazyImage
+            alt='capa'
+            src={book.cover}
+            effect='blur'
+            afterLoad={() => setImageIsReady(true)}
+          />
         </S.ImageWrapper>
         <S.BookTitle>{book.title.toUpperCase()}</S.BookTitle>
       </S.Container>
