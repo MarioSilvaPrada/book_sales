@@ -29,7 +29,6 @@ export const Pagination: FC<IProps> = ({ total, numPerFetch, currentPage }) => {
       width='auto'
       p={3}
       mx={50}
-      mt={3}
     >
       {pageNumber}
     </S.Container>

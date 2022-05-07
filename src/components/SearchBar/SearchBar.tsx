@@ -25,7 +25,7 @@ export const SearchBar: FC<IProps> = () => {
         <S.SearchInput
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder='Pesquise por título do livro ou autor'
+          placeholder='Pesquise por título ou autor'
         />
         <S.Submit type='submit' value='Pesquisar' />
       </S.StyledForm>

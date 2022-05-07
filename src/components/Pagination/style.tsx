@@ -22,6 +22,12 @@ export const StyledLink = styled(Link)<{ selected: boolean }>`
   justify-content: center;
   color: ${({ selected }) => (selected ? 'white' : 'black')};
   ${({ selected }) => selected && selectedStyle}
+
+  @media (max-width: 800px) {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
 `;
 
 export const StyledNumber = styled.span``;

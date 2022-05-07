@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { resetForm } from 'data/Reservations/slice';
+import { collectionSelector } from 'data/Collections/slice';
+import { getBooksFromCollection } from 'data/Collections/actions';
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
@@ -16,12 +18,21 @@ export const BookDetail = () => {
   const { key: keyLocation } = useLocation();
   const { id } = useParams();
   const { bookDetail, loading } = useSelector(booksSelector);
+  const { collectionsFilter } = useSelector(collectionSelector);
 
   useEffect(() => {
     if (id) {
       dispatch(getSingleBookDetails(id));
     }
   }, [id, dispatch]);
+
+  useEffect(() => {
+    if (bookDetail?.collection) {
+      console.log(bookDetail?.collection);
+
+      dispatch(getBooksFromCollection(bookDetail.collection));
+    }
+  }, [bookDetail, dispatch]);
 
   const onGoBack = () => {
     if (keyLocation === 'default') {

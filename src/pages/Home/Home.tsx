@@ -5,10 +5,21 @@ import { useAppDispatch } from 'store';
 import { useSelector } from 'react-redux';
 import { booksSelector } from 'data/Books/slice';
 import { BookCard, Grid, ScreenTemplate } from 'components';
+import {
+  getBooksFromCollection,
+  getCollections,
+} from 'data/Collections/actions';
+import { collectionSelector } from 'data/Collections/slice';
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const { page } = useParams();
+  const { page, collectionId } = useParams();
   const { books, loading } = useSelector(booksSelector);
+  const { collectionsFilter, loading: loadingCollections } =
+    useSelector(collectionSelector);
+
+  useEffect(() => {
+    dispatch(getCollections());
+  }, [dispatch]);
 
   useEffect(() => {
     if (page) {
@@ -18,17 +29,27 @@ export const Home = () => {
     dispatch(setBooks());
   }, [page, dispatch]);
 
+  useEffect(() => {
+    if (collectionId) {
+      dispatch(getBooksFromCollection(collectionId));
+    }
+  }, [collectionId, dispatch]);
+
   return (
     <ScreenTemplate
-      isLoading={loading}
+      isLoading={loading || loadingCollections}
       currentPage={page}
+      currentCollectionId={collectionId}
       hasPagination
       searchActive
+      addFilter
     >
       <Grid>
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
+        {collectionId
+          ? collectionsFilter[collectionId]?.map((book) => (
+              <BookCard key={book.id} book={book} />
+            ))
+          : books.map((book) => <BookCard key={book.id} book={book} />)}
       </Grid>
     </ScreenTemplate>
   );

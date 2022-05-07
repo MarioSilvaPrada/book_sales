@@ -9,6 +9,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/:page' element={<Home />} />
+          <Route path='/collections/:collectionId' element={<Home />} />
           <Route path='/book/:id' element={<BookDetail />} />
         </Routes>
       </BrowserRouter>

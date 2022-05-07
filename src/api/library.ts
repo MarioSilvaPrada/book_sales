@@ -57,3 +57,31 @@ export const reserveBook = async (
     return handleErrorResponse(err);
   }
 };
+
+export const getAllCollections = async (): Promise<any> => {
+  try {
+    const url = 'library/collections/';
+    const res = await api.get(url);
+    return res;
+  } catch (e) {
+    let errorMessage = 'Failed to do something exceptional';
+    if (e instanceof Error) {
+      errorMessage = e.message;
+    }
+    return errorMessage;
+  }
+};
+
+export const getSingleCollection = async (id: string): Promise<any> => {
+  try {
+    const url = 'library/collections/' + id;
+    const res = await api.get(url);
+    return res;
+  } catch (e) {
+    let errorMessage = 'Failed to do something exceptional';
+    if (e instanceof Error) {
+      errorMessage = e.message;
+    }
+    return errorMessage;
+  }
+};

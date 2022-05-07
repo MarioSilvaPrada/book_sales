@@ -8,6 +8,10 @@ export const Background = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -20,6 +24,10 @@ export const Wrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 2rem;
   width: 100%;
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+  }
 `;
 
 export const SpinnerWrapper = styled.div`
