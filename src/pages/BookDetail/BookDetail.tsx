@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Box, ReservationForm, ScreenTemplate } from 'components';
+import { Box, ReservationForm, ScreenTemplate, BookCard } from 'components';
 import * as S from './BookDetail.style';
 import { getSingleBookDetails } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
@@ -28,9 +28,8 @@ export const BookDetail = () => {
 
   useEffect(() => {
     if (bookDetail?.collection) {
-      console.log(bookDetail?.collection);
-
-      dispatch(getBooksFromCollection(bookDetail.collection));
+      const collectionId = String(bookDetail.collection.id);
+      dispatch(getBooksFromCollection(collectionId));
     }
   }, [bookDetail, dispatch]);
 
@@ -63,13 +62,17 @@ export const BookDetail = () => {
     },
     {
       description: 'Coleção',
-      text: bookDetail?.collection,
+      text: bookDetail?.collection?.title,
     },
     {
       description: 'Preço',
       text: `${bookDetail?.price}€`,
     },
   ];
+
+  const otherBooks = collectionsFilter[
+    String(bookDetail?.collection?.id)
+  ]?.filter((book) => !book.is_sold && book.id !== bookDetail?.id);
 
   return (
     <ScreenTemplate isLoading={loading}>
@@ -131,6 +134,21 @@ export const BookDetail = () => {
               )}
             </S.InfoWrapper>
           </S.Container>
+          {otherBooks && otherBooks.length > 0 && (
+            <>
+              <S.OthersTitle>Outros livros da mesma coleção:</S.OthersTitle>
+              <S.OthersWrapper>
+                {otherBooks.map((book) => (
+                  <S.OthersBookContainer key={book.id}>
+                    <S.BookLink to={`/book/${book.id}`}>
+                      <S.SmallImage src={book.cover} />
+                      <S.Paragraph>{book.title}</S.Paragraph>
+                    </S.BookLink>
+                  </S.OthersBookContainer>
+                ))}
+              </S.OthersWrapper>
+            </>
+          )}
         </>
       ) : (
         <div>

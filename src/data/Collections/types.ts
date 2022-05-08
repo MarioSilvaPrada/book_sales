@@ -1,9 +1,9 @@
 import { BookType } from 'data/Books/types';
 
-export type CollectionType = {
+export type CollectionType<T = BookType[]> = {
   id: number;
   title: string;
-  books_collection: BookType[];
+  books_collection: T;
 };
 export type CollectionResponse = {
   count: number;

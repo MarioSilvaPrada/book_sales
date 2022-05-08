@@ -40,8 +40,8 @@ export const Home = () => {
       isLoading={loading || loadingCollections}
       currentPage={page}
       currentCollectionId={collectionId}
-      hasPagination
-      searchActive
+      hasPagination={!collectionId}
+      searchActive={!collectionId}
       addFilter
     >
       <Grid>

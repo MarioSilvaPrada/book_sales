@@ -1,8 +1,10 @@
+import { CollectionType } from "data/Collections/types";
+
 export type BookType = {
   id: number;
   title: string;
   author: string;
-  collection?: string;
+  collection?: CollectionType<number>;
   language: string;
   pages: number;
   price: string;

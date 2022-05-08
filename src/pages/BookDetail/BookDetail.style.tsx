@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Link } from 'react-router-dom';
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.colors.background.dark};
@@ -111,4 +112,56 @@ export const SoldText = styled.p`
   width: 20rem;
   margin: 0 auto;
   margin-bottom: 2rem;
+`;
+
+export const OthersWrapper = styled.div`
+  display: flex;
+  overflow-x: scroll;
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    height: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  }
+`;
+
+export const SmallImage = styled(LazyLoadImage)`
+  width: 100%;
+  border-radius: 0.5rem;
+`;
+
+export const OthersBookContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+`;
+
+export const BookLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  width: 12rem;
+  @media (max-width: 920px) {
+    width: 15rem;
+  }
+`;
+
+export const Paragraph = styled.p`
+  font-size: 0.8rem;
+  @media (max-width: 920px) {
+    font-size: 1rem;
+  }
+`;
+
+export const OthersTitle = styled.p`
+  font-size: 1.1rem;
+  margin: 2rem 0 1rem;
+  text-align: start;
+
+  @media (max-width: 920px) {
+    font-size: 1.5rem;
+  }
 `;
