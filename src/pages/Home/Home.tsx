@@ -24,6 +24,7 @@ export const Home = () => {
   useEffect(() => {
     if (page) {
       dispatch(setBooks(page));
+      window.scrollTo(0, 0);
       return;
     }
     dispatch(setBooks());
