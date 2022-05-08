@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Box, ReservationForm, ScreenTemplate, BookCard } from 'components';
+import { Box, ReservationForm, ScreenTemplate } from 'components';
 import * as S from './BookDetail.style';
 import { getSingleBookDetails } from 'data/Books/actions';
 import { useAppDispatch } from 'store';
