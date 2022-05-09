@@ -151,6 +151,7 @@ export const BookLink = styled(Link)`
 
 export const Paragraph = styled.p`
   font-size: 0.8rem;
+  text-transform: uppercase;
   @media (max-width: 920px) {
     font-size: 1rem;
   }
