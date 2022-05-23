@@ -10,6 +10,7 @@ export const Container = styled(Box)`
   border-radius: 0.5rem;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 export const StyledLink = styled(Link)<{ selected: boolean }>`
   text-decoration: none;
