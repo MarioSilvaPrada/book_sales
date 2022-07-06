@@ -17,24 +17,24 @@ export const Home = () => {
   const { collectionsFilter, loading: loadingCollections } =
     useSelector(collectionSelector);
 
-  useEffect(() => {
-    dispatch(getCollections());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCollections());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (page) {
-      dispatch(setBooks(page));
-      window.scrollTo(0, 0);
-      return;
-    }
-    dispatch(setBooks());
-  }, [page, dispatch]);
+  // useEffect(() => {
+  //   if (page) {
+  //     dispatch(setBooks(page));
+  //     window.scrollTo(0, 0);
+  //     return;
+  //   }
+  //   dispatch(setBooks());
+  // }, [page, dispatch]);
 
-  useEffect(() => {
-    if (collectionId) {
-      dispatch(getBooksFromCollection(collectionId));
-    }
-  }, [collectionId, dispatch]);
+  // useEffect(() => {
+  //   if (collectionId) {
+  //     dispatch(getBooksFromCollection(collectionId));
+  //   }
+  // }, [collectionId, dispatch]);
 
   return (
     <ScreenTemplate
@@ -45,13 +45,14 @@ export const Home = () => {
       searchActive={!collectionId}
       addFilter
     >
-      <Grid>
+      {/* <Grid>
         {collectionId
           ? collectionsFilter[collectionId]?.map((book) => (
               <BookCard key={book.id} book={book} />
             ))
           : books.map((book) => <BookCard key={book.id} book={book} />)}
-      </Grid>
+      </Grid> */}
+      <h1>Em construção...</h1>
     </ScreenTemplate>
   );
 };
