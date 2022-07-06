@@ -52,7 +52,7 @@ export const Home = () => {
             ))
           : books.map((book) => <BookCard key={book.id} book={book} />)}
       </Grid> */}
-      <h1>Em construção...</h1>
+      <h1>Em construção. Voltamos dentro de instantes.</h1>
     </ScreenTemplate>
   );
 };
