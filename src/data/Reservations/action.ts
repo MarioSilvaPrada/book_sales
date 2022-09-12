@@ -3,17 +3,21 @@ import {
   setReservationError,
   setReservationHasDone,
   resetErrors,
-} from './slice';
+} from "./slice";
 
-import { reserveBook, ReservationsParams } from 'api/library';
-import { AppDispatch, AppThunk } from 'store';
-import axios from 'axios';
+import { reserveBook, ReservationsParams } from "api/library";
+import { AppDispatch, AppThunk } from "store";
+import axios from "axios";
 
 export const sendReservation =
   (params: ReservationsParams): AppThunk =>
   async (dispatch: AppDispatch) => {
     dispatch(isLoading(true));
+    console.log("book free");
+
     const res = await reserveBook(params);
+
+    console.log("book", res);
 
     if (axios.isAxiosError(res)) {
       if (res?.response) {
@@ -24,7 +28,7 @@ export const sendReservation =
       dispatch(isLoading(false));
       return;
     }
-    if (typeof res === 'string') {
+    if (typeof res === "string") {
       dispatch(setReservationError(res));
       dispatch(isLoading(false));
       return;

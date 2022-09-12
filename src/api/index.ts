@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_ROOT,
+  // baseURL: process.env.REACT_APP_API_ROOT,
+  baseURL: "https://homeserver.mariosilvaprada.com/",
 });
 
 export const handleErrorResponse = (error: unknown) => {
@@ -11,5 +12,5 @@ export const handleErrorResponse = (error: unknown) => {
   if (error instanceof Error) {
     return error.message;
   }
-  return 'Something went wrong';
+  return "Something went wrong";
 };
