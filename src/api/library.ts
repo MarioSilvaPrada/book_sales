@@ -51,7 +51,7 @@ export const reserveBook = async (
   params: ReservationsParams
 ): Promise<{ status: number } | AxiosError | string> => {
   try {
-    const { status } = await api.post('library/reservations', params);
+    const { status } = await api.post('library/reservations/', params);
     return { status };
   } catch (err) {
     return handleErrorResponse(err);
