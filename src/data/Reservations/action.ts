@@ -13,11 +13,8 @@ export const sendReservation =
   (params: ReservationsParams): AppThunk =>
   async (dispatch: AppDispatch) => {
     dispatch(isLoading(true));
-    console.log("book free");
 
     const res = await reserveBook(params);
-
-    console.log("book", res);
 
     if (axios.isAxiosError(res)) {
       if (res?.response) {
