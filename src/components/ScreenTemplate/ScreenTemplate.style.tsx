@@ -1,20 +1,24 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const Background = styled.div`
-  padding: 2rem;
+export const BackgroundColor = styled.div`
   background: ${({ theme }) => theme.colors.main};
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
+  justify-content: center;
+  padding: 2rem;
   @media (max-width: 600px) {
     padding: 1.5rem;
   }
 `;
 
+export const Background = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100rem;
+`;
+
 export const Wrapper = styled.div`
-  max-width: ${({ theme }) => theme.dimensions.maxWidth};
   margin: 0 auto;
   border: 0.2rem solid ${({ theme }) => theme.colors.background.light};
   background: ${({ theme }) => theme.colors.background.light};

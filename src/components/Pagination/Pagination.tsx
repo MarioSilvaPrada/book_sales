@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
-import * as S from './style';
+import { FC, useEffect, useState } from "react";
+import * as S from "./style";
 
 type IProps = {
   total: number;
@@ -15,7 +15,14 @@ export const Pagination: FC<IProps> = ({ total, numPerFetch, currentPage }) => {
     for (let i = 0; i < paginationNumber; i++) {
       const num = i + 1;
       newArr.push(
-        <S.StyledLink key={i} to={`/${num}`} selected={num === currentPage}>
+        <S.StyledLink
+          key={i}
+          to={{
+            // pathname: "/",
+            search: `?page=${num}`,
+          }}
+          selected={num === currentPage}
+        >
           <S.StyledNumber>{num}</S.StyledNumber>
         </S.StyledLink>
       );
@@ -24,9 +31,9 @@ export const Pagination: FC<IProps> = ({ total, numPerFetch, currentPage }) => {
   }, [paginationNumber, currentPage]);
   return (
     <S.Container
-      flexDirection='row'
-      alignItems='center'
-      width='auto'
+      flexDirection="row"
+      alignItems="center"
+      width="auto"
       p={3}
       mx={50}
     >

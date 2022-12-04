@@ -1,13 +1,12 @@
-import styled from 'styled-components';
-import { Box } from 'components';
+import styled from "styled-components";
+import { Box } from "components";
 
 export const Container = styled(Box)`
-  width: 100%;
+  width: 70%;
 `;
 
 export const StyledForm = styled.form`
   position: relative;
-  max-width: 50rem;
   margin: 0 auto;
   align-items: center;
   display: flex;
