@@ -1,4 +1,3 @@
-import { setBooks } from "data/Books/actions";
 import { FC, useState, SyntheticEvent, useEffect } from "react";
 import { useAppDispatch } from "store";
 import * as S from "./style";
