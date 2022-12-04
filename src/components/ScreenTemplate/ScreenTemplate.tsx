@@ -8,21 +8,25 @@ import { Link } from "react-router-dom";
 
 type IProps = {
   children: React.ReactNode;
-  isLoading?: boolean;
+  isLoadingBooks?: boolean;
+  isLoadingCollections?: boolean;
   searchActive?: boolean;
   currentPage?: string;
   currentCollectionId?: string;
   addFilter?: boolean;
+  paginationDisabled?: boolean;
   searchField?: string;
   collectionId?: string;
 };
 export const ScreenTemplate: FC<IProps> = ({
   children,
-  isLoading,
+  isLoadingBooks,
+  isLoadingCollections,
   searchActive,
   currentPage = 1,
   currentCollectionId,
   addFilter,
+  paginationDisabled,
   collectionId,
   searchField,
 }) => {
@@ -39,9 +43,12 @@ export const ScreenTemplate: FC<IProps> = ({
         </TopBar>
 
         {addFilter && (
-          <CollectionFilter currentCollectionId={currentCollectionId} />
+          <CollectionFilterComponent
+            loading={isLoadingCollections}
+            currentCollectionId={currentCollectionId}
+          />
         )}
-        {!collectionId && (
+        {!paginationDisabled && (
           <Pagination
             total={count}
             numPerFetch={40}
@@ -49,7 +56,7 @@ export const ScreenTemplate: FC<IProps> = ({
           />
         )}
         <S.Wrapper>
-          {!isLoading ? (
+          {!isLoadingBooks ? (
             children
           ) : (
             <S.SpinnerWrapper>
@@ -57,7 +64,7 @@ export const ScreenTemplate: FC<IProps> = ({
             </S.SpinnerWrapper>
           )}
         </S.Wrapper>
-        {!collectionId && (
+        {!paginationDisabled && (
           <Pagination
             total={count}
             numPerFetch={40}
@@ -67,6 +74,23 @@ export const ScreenTemplate: FC<IProps> = ({
       </S.Background>
     </S.BackgroundColor>
   );
+};
+
+type CollectionFilterProps = {
+  loading?: boolean;
+  currentCollectionId?: string;
+};
+
+const CollectionFilterComponent = ({
+  loading,
+  currentCollectionId,
+}: CollectionFilterProps) => {
+  console.log({ loading });
+  if (loading) {
+    return <Spinner />;
+  }
+
+  return <CollectionFilter currentCollectionId={currentCollectionId} />;
 };
 
 const RemoveFilterBtn = styled(Link)`

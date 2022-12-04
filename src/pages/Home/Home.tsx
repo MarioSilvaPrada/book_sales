@@ -45,13 +45,15 @@ export const Home = () => {
 
   return (
     <ScreenTemplate
-      isLoading={loading || loadingCollections}
+      isLoadingBooks={loading}
+      isLoadingCollections={loadingCollections}
       currentPage={page}
       currentCollectionId={collectionId}
       searchActive
       addFilter
       searchField={searchField}
       collectionId={collectionId}
+      paginationDisabled={!!collectionId}
     >
       <Grid>
         {collectionId

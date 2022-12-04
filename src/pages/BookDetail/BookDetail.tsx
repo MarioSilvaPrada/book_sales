@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { IoMdArrowRoundBack } from 'react-icons/io';
-import { Box, ReservationForm, ScreenTemplate } from 'components';
-import * as S from './BookDetail.style';
-import { getSingleBookDetails } from 'data/Books/actions';
-import { useAppDispatch } from 'store';
-import { useSelector } from 'react-redux';
-import { booksSelector } from 'data/Books/slice';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import { resetForm } from 'data/Reservations/slice';
-import { collectionSelector } from 'data/Collections/slice';
-import { getBooksFromCollection } from 'data/Collections/actions';
+import { useEffect } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Box, ReservationForm, ScreenTemplate } from "components";
+import * as S from "./BookDetail.style";
+import { getSingleBookDetails } from "data/Books/actions";
+import { useAppDispatch } from "store";
+import { useSelector } from "react-redux";
+import { booksSelector } from "data/Books/slice";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import { resetForm } from "data/Reservations/slice";
+import { collectionSelector } from "data/Collections/slice";
+import { getBooksFromCollection } from "data/Collections/actions";
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +27,7 @@ export const BookDetail = () => {
   }, [id, dispatch]);
 
   useEffect(() => {
+    console.log({ bookDetail });
     if (bookDetail?.collection) {
       const collectionId = String(bookDetail.collection.id);
       dispatch(getBooksFromCollection(collectionId));
@@ -34,8 +35,8 @@ export const BookDetail = () => {
   }, [bookDetail, dispatch]);
 
   const onGoBack = () => {
-    if (keyLocation === 'default') {
-      navigate('/');
+    if (keyLocation === "default") {
+      navigate("/");
     } else {
       navigate(-1);
     }
@@ -45,27 +46,27 @@ export const BookDetail = () => {
 
   const infoDetails = [
     {
-      description: 'Autor',
+      description: "Autor",
       text: bookDetail?.author,
     },
     {
-      description: 'Editora',
+      description: "Editora",
       text: bookDetail?.publisher,
     },
     {
-      description: 'Ano de publicação',
+      description: "Ano de publicação",
       text: bookDetail?.year,
     },
     {
-      description: 'Páginas',
+      description: "Páginas",
       text: bookDetail?.pages,
     },
     {
-      description: 'Coleção',
+      description: "Coleção",
       text: bookDetail?.collection?.title,
     },
     {
-      description: 'Preço',
+      description: "Preço",
       text: `${bookDetail?.price}€`,
     },
   ];
@@ -75,12 +76,12 @@ export const BookDetail = () => {
   ]?.filter((book) => !book.is_sold && book.id !== bookDetail?.id);
 
   return (
-    <ScreenTemplate isLoading={loading}>
+    <ScreenTemplate isLoadingBooks={loading} paginationDisabled>
       {bookDetail ? (
         <>
           <S.TopRow>
             <S.Button onClick={onGoBack}>
-              <IoMdArrowRoundBack color='white' size='1.5rem' />
+              <IoMdArrowRoundBack color="white" size="1.5rem" />
             </S.Button>
             <S.BookTitle>{bookDetail.title.toUpperCase()}</S.BookTitle>
             <S.Placeholder />
@@ -90,23 +91,23 @@ export const BookDetail = () => {
           <S.Container>
             <S.ImageContainer>
               <S.ImageWrapper>
-                <Box flexDirection='column'>
+                <Box flexDirection="column">
                   <S.CoverWrapper>
                     <S.StyledImg
                       src={bookDetail.cover}
-                      alt='capa'
-                      effect='blur'
+                      alt="capa"
+                      effect="blur"
                     />
                     <h3>Capa</h3>
                   </S.CoverWrapper>
                 </Box>
 
                 {bookDetail.back && (
-                  <Box flexDirection='column'>
+                  <Box flexDirection="column">
                     <S.StyledImg
                       src={bookDetail.back}
-                      alt='contra-capa'
-                      effect='blur'
+                      alt="contra-capa"
+                      effect="blur"
                     />
                     <h3>Contracapa</h3>
                   </Box>
