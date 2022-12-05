@@ -85,7 +85,6 @@ const CollectionFilterComponent = ({
   loading,
   currentCollectionId,
 }: CollectionFilterProps) => {
-  console.log({ loading });
   if (loading) {
     return <Spinner />;
   }

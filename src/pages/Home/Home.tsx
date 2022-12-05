@@ -25,12 +25,12 @@ export const Home = () => {
   const collectionId = searchParams.get("collectionId") || undefined;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (searchField) {
       dispatch(setBooks(undefined, searchField));
     }
     if (page) {
       dispatch(setBooks(page));
-      window.scrollTo(0, 0);
       return;
     }
 

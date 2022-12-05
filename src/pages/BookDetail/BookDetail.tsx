@@ -21,13 +21,13 @@ export const BookDetail = () => {
   const { collectionsFilter } = useSelector(collectionSelector);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (id) {
       dispatch(getSingleBookDetails(id));
     }
   }, [id, dispatch]);
 
   useEffect(() => {
-    console.log({ bookDetail });
     if (bookDetail?.collection) {
       const collectionId = String(bookDetail.collection.id);
       dispatch(getBooksFromCollection(collectionId));
