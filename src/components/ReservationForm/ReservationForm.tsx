@@ -66,7 +66,8 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
     <S.Container>
       <S.Note>
         Caso pretenda comprar este livro, preencha os campos em baixo e
-        entraremos em contacto consigo.
+        entraremos em contacto consigo. Pode também fazer reserva para o mail
+        mariosilvaprada@gmail.com
       </S.Note>
       <S.StyledForm onSubmit={handleSubmit}>
         <S.StyledInput
