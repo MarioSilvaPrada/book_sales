@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const api = axios.create({
   // baseURL: process.env.REACT_APP_API_ROOT,
-  baseURL: "https://homeserver.mariosilvaprada.com/",
+  baseURL: "https://homeserver.marioprada.me/",
 });
 
 export const handleErrorResponse = (error: unknown) => {
