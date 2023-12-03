@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "store";
 import { useSelector } from "react-redux";
@@ -25,8 +25,6 @@ export const Home = () => {
 
   const { results: books } = data || {};
 
-  console.log({ data, isLoading, page });
-
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -39,7 +37,7 @@ export const Home = () => {
     if (data && count === 0) {
       dispatch(setBookCount(data.count));
     }
-  }, [data]);
+  }, [data, count, dispatch]);
 
   return (
     <ScreenTemplate

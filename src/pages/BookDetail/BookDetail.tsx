@@ -6,7 +6,6 @@ import * as S from "./BookDetail.style";
 import { getSingleBookDetails } from "data/Books/actions";
 import { useAppDispatch } from "store";
 import { useSelector } from "react-redux";
-import { booksSelector } from "data/Books/slice";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { resetForm } from "data/Reservations/slice";
 import { collectionSelector } from "data/Collections/slice";
