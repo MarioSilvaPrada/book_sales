@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { booksSelector } from "data/Books/slice";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useGetCollectionsQuery } from "data/Collections/collectionsApi";
 
 type IProps = {
   children: React.ReactNode;
@@ -21,7 +22,6 @@ type IProps = {
 export const ScreenTemplate: FC<IProps> = ({
   children,
   isLoadingBooks,
-  isLoadingCollections,
   searchActive,
   currentPage = 1,
   currentCollectionId,
@@ -44,7 +44,6 @@ export const ScreenTemplate: FC<IProps> = ({
 
         {addFilter && (
           <CollectionFilterComponent
-            loading={isLoadingCollections}
             currentCollectionId={currentCollectionId}
           />
         )}
@@ -77,19 +76,23 @@ export const ScreenTemplate: FC<IProps> = ({
 };
 
 type CollectionFilterProps = {
-  loading?: boolean;
   currentCollectionId?: string;
 };
 
 const CollectionFilterComponent = ({
-  loading,
   currentCollectionId,
 }: CollectionFilterProps) => {
-  if (loading) {
+  const { data, isLoading } = useGetCollectionsQuery();
+  if (isLoading) {
     return <Spinner />;
   }
-
-  return <CollectionFilter currentCollectionId={currentCollectionId} />;
+  if (!data) return <h2>Sem filtros disponíveis</h2>;
+  return (
+    <CollectionFilter
+      currentCollectionId={currentCollectionId}
+      collectionResponse={data}
+    />
+  );
 };
 
 const RemoveFilterBtn = styled(Link)`

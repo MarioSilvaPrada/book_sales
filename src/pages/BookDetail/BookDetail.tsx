@@ -11,21 +11,20 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { resetForm } from "data/Reservations/slice";
 import { collectionSelector } from "data/Collections/slice";
 import { getBooksFromCollection } from "data/Collections/actions";
+import { useGetBookByIdQuery } from "data/Books/booksApi";
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { key: keyLocation } = useLocation();
-  const { id } = useParams();
-  const { bookDetail, loading } = useSelector(booksSelector);
+  const { id = "" } = useParams();
   const { collectionsFilter } = useSelector(collectionSelector);
+
+  const { data: bookDetail, isLoading } = useGetBookByIdQuery({ id });
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (id) {
-      dispatch(getSingleBookDetails(id));
-    }
-  }, [id, dispatch]);
+  }, []);
 
   useEffect(() => {
     if (bookDetail?.collection) {
@@ -76,7 +75,7 @@ export const BookDetail = () => {
   ]?.filter((book) => !book.is_sold && book.id !== bookDetail?.id);
 
   return (
-    <ScreenTemplate isLoadingBooks={loading} paginationDisabled>
+    <ScreenTemplate isLoadingBooks={isLoading} paginationDisabled>
       {bookDetail ? (
         <>
           <S.TopRow>

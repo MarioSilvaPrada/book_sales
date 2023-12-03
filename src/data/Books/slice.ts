@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { RootState } from '../';
-import { BooksState, BookType, ResponseType } from './types';
+import { RootState } from "../";
+import { BooksState, BookType } from "./types";
 export const initialState: BooksState = {
   loading: false,
   hasErrors: false,
-  errorMessage: '',
+  errorMessage: "",
   books: [],
   bookDetail: null,
   nextLink: null,
@@ -14,7 +14,7 @@ export const initialState: BooksState = {
 };
 
 const booksSlice = createSlice({
-  name: 'book',
+  name: "book",
   initialState,
   reducers: {
     isLoading: (state, action) => {
@@ -22,14 +22,6 @@ const booksSlice = createSlice({
     },
     setBookCount: (state, action: PayloadAction<number>) => {
       state.count = action.payload;
-    },
-    getBooksSuccess: (state, action: PayloadAction<ResponseType>) => {
-      state.books = action.payload.results;
-      state.nextLink = action.payload.next;
-      state.previousLink = action.payload.previous;
-      state.loading = false;
-      state.hasErrors = false;
-      state.errorMessage = '';
     },
     setBookDetail: (state, action: PayloadAction<BookType | null>) => {
       state.bookDetail = action.payload;
@@ -41,14 +33,13 @@ const booksSlice = createSlice({
     },
     resetErrors: (state) => {
       state.hasErrors = false;
-      state.errorMessage = '';
+      state.errorMessage = "";
     },
   },
 });
 
 export const {
   isLoading,
-  getBooksSuccess,
   setErrorMessage,
   resetErrors,
   setBookDetail,

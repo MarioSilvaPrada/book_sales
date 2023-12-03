@@ -26,7 +26,7 @@ export type BooksState = {
   count: number;
 };
 
-export type ResponseType = {
+export type BooksResponseType = {
   count: number;
   next: string | null;
   previous: string | null;

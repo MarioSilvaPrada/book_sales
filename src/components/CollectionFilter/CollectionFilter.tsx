@@ -1,14 +1,18 @@
-import React, { FC } from "react";
-import { collectionSelector } from "data/Collections/slice";
-import { useSelector } from "react-redux";
+import { FC } from "react";
+
 import { Tag } from "components";
 import * as S from "./CollectionFilter.style";
+import { CollectionResponse } from "data/Collections/types";
 
 type IProps = {
   currentCollectionId?: string;
+  collectionResponse: CollectionResponse;
 };
-export const CollectionFilter: FC<IProps> = ({ currentCollectionId }) => {
-  const { collections } = useSelector(collectionSelector);
+export const CollectionFilter: FC<IProps> = ({
+  currentCollectionId,
+  collectionResponse,
+}) => {
+  const { results: collections } = collectionResponse;
 
   return (
     collections && (
@@ -17,7 +21,7 @@ export const CollectionFilter: FC<IProps> = ({ currentCollectionId }) => {
           <S.FilterText>Filtrar por coleções:</S.FilterText>
         </S.HeaderWrapper>
         <S.TagWrapper>
-          {collections.results.map((collection) => (
+          {collections.map((collection) => (
             <S.StyledLink
               key={collection.id}
               to={{
