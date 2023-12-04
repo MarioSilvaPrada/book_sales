@@ -3,34 +3,31 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Box, ReservationForm, ScreenTemplate } from "components";
 import * as S from "./BookDetail.style";
-import { getSingleBookDetails } from "data/Books/actions";
 import { useAppDispatch } from "store";
-import { useSelector } from "react-redux";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { resetForm } from "data/Reservations/slice";
-import { collectionSelector } from "data/Collections/slice";
-import { getBooksFromCollection } from "data/Collections/actions";
 import { useGetBookByIdQuery } from "data/Books/booksApi";
+import { useGetCollectionByIdQuery } from "data/Collections/collectionsApi";
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { key: keyLocation } = useLocation();
   const { id = "" } = useParams();
-  const { collectionsFilter } = useSelector(collectionSelector);
 
   const { data: bookDetail, isLoading } = useGetBookByIdQuery({ id });
+  const hasCollection = Boolean(bookDetail?.collection?.id);
+  const { data: collection, isLoading: loadingCollection } =
+    useGetCollectionByIdQuery(
+      {
+        id: String(bookDetail?.collection?.id),
+      },
+      { skip: !hasCollection }
+    );
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    if (bookDetail?.collection) {
-      const collectionId = String(bookDetail.collection.id);
-      dispatch(getBooksFromCollection(collectionId));
-    }
-  }, [bookDetail, dispatch]);
 
   const onGoBack = () => {
     if (keyLocation === "default") {
@@ -38,7 +35,6 @@ export const BookDetail = () => {
     } else {
       navigate(-1);
     }
-    dispatch(getSingleBookDetails(null));
     dispatch(resetForm());
   };
 
@@ -69,12 +65,18 @@ export const BookDetail = () => {
     },
   ];
 
-  const otherBooks = collectionsFilter[
-    String(bookDetail?.collection?.id)
-  ]?.filter((book) => !book.is_sold && book.id !== bookDetail?.id);
+  const otherBooks =
+    collection &&
+    collection?.books_collection.length > 0 &&
+    collection.books_collection.filter(
+      (book) => !book.is_sold && book.id !== bookDetail?.id
+    );
 
   return (
-    <ScreenTemplate isLoadingBooks={isLoading} paginationDisabled>
+    <ScreenTemplate
+      isLoadingBooks={isLoading || loadingCollection}
+      paginationDisabled
+    >
       {bookDetail ? (
         <>
           <S.TopRow>

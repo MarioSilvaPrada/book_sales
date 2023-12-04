@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../";
-import { BooksState, BookType } from "./types";
+import { BooksState } from "./types";
 export const initialState: BooksState = {
   loading: false,
   hasErrors: false,
@@ -23,14 +23,6 @@ const booksSlice = createSlice({
     setBookCount: (state, action: PayloadAction<number>) => {
       state.count = action.payload;
     },
-    setBookDetail: (state, action: PayloadAction<BookType | null>) => {
-      state.bookDetail = action.payload;
-    },
-    setErrorMessage: (state, action: PayloadAction<string>) => {
-      state.loading = false;
-      state.hasErrors = true;
-      state.errorMessage = action.payload;
-    },
     resetErrors: (state) => {
       state.hasErrors = false;
       state.errorMessage = "";
@@ -38,13 +30,7 @@ const booksSlice = createSlice({
   },
 });
 
-export const {
-  isLoading,
-  setErrorMessage,
-  resetErrors,
-  setBookDetail,
-  setBookCount,
-} = booksSlice.actions;
+export const { isLoading, resetErrors, setBookCount } = booksSlice.actions;
 
 export const booksSelector = (state: RootState) => state.books;
 

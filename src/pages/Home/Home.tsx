@@ -4,34 +4,34 @@ import { useAppDispatch } from "store";
 import { useSelector } from "react-redux";
 import { booksSelector, setBookCount } from "data/Books/slice";
 import { BookCard, Grid, ScreenTemplate } from "components";
-import { getBooksFromCollection } from "data/Collections/actions";
-import { collectionSelector } from "data/Collections/slice";
 import { useGetBooksQuery } from "data/Books/booksApi";
+import { useGetCollectionByIdQuery } from "data/Collections/collectionsApi";
 export const Home = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const { collectionsFilter, loading: loadingCollections } =
-    useSelector(collectionSelector);
+
   const { count } = useSelector(booksSelector);
 
   const searchField = searchParams.get("search") || undefined;
   const page = searchParams.get("page") || undefined;
-  const collectionId = searchParams.get("collectionId") || undefined;
+  const collectionId = searchParams.get("collectionId") || "";
 
   const { data, isLoading, isFetching } = useGetBooksQuery({
     search: searchField,
     page: page,
   });
 
+  const {
+    data: collection,
+    isLoading: loadingCollection,
+    isFetching: fetchingCollection,
+  } = useGetCollectionByIdQuery({ id: collectionId });
+
   const { results: books } = data || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    if (collectionId) {
-      dispatch(getBooksFromCollection(collectionId));
-    }
-  }, [dispatch, searchParams, collectionId, page, searchField]);
+  }, [searchParams, collectionId, page, searchField]);
 
   useEffect(() => {
     if (data && count === 0) {
@@ -41,8 +41,8 @@ export const Home = () => {
 
   return (
     <ScreenTemplate
-      isLoadingBooks={isLoading || isFetching}
-      isLoadingCollections={loadingCollections}
+      isLoadingBooks={isLoading || isFetching || fetchingCollection}
+      isLoadingCollections={loadingCollection}
       currentPage={page}
       currentCollectionId={collectionId}
       searchActive
@@ -53,7 +53,7 @@ export const Home = () => {
     >
       <Grid>
         {collectionId
-          ? collectionsFilter[collectionId]?.map((book) => (
+          ? collection?.books_collection?.map((book) => (
               <BookCard key={book.id} book={book} />
             ))
           : books?.map((book) => <BookCard key={book.id} book={book} />)}

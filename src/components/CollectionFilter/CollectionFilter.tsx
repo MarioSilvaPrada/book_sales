@@ -8,6 +8,7 @@ type IProps = {
   currentCollectionId?: string;
   collectionResponse: CollectionResponse;
 };
+
 export const CollectionFilter: FC<IProps> = ({
   currentCollectionId,
   collectionResponse,
