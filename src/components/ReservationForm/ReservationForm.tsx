@@ -36,6 +36,10 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    if (!form.name || !form.email) {
+      alert("Por favor preencha o seu nome e email");
+      return;
+    }
     dispatch(sendReservation({ ...form, book: bookId }));
   };
 
