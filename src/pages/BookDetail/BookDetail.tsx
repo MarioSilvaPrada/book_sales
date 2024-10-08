@@ -8,6 +8,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { resetForm } from "data/Reservations/slice";
 import { useGetBookByIdQuery } from "data/Books/booksApi";
 import { useGetCollectionByIdQuery } from "data/Collections/collectionsApi";
+import { Helmet } from "react-helmet";
 
 export const BookDetail = () => {
   const dispatch = useAppDispatch();
@@ -73,89 +74,102 @@ export const BookDetail = () => {
     );
 
   return (
-    <ScreenTemplate
-      isLoadingBooks={isLoading || loadingCollection}
-      paginationDisabled
-    >
-      {bookDetail ? (
-        <>
-          <S.TopRow>
-            <S.Button onClick={onGoBack}>
-              <IoMdArrowRoundBack color="white" size="1.5rem" />
-            </S.Button>
-            <S.BookTitle>{bookDetail.title.toUpperCase()}</S.BookTitle>
-            <S.Placeholder />
-          </S.TopRow>
+    <>
+      <Helmet>
+        <title>{bookDetail?.title}</title>
+        <meta
+          name="description"
+          content={`${bookDetail?.title} - ${bookDetail?.author}`}
+        />
+        <meta
+          name="keywords"
+          content={`${bookDetail?.title}, ${bookDetail?.author}`}
+        />
+      </Helmet>
+      <ScreenTemplate
+        isLoadingBooks={isLoading || loadingCollection}
+        paginationDisabled
+      >
+        {bookDetail ? (
+          <>
+            <S.TopRow>
+              <S.Button onClick={onGoBack}>
+                <IoMdArrowRoundBack color="white" size="1.5rem" />
+              </S.Button>
+              <S.BookTitle>{bookDetail.title.toUpperCase()}</S.BookTitle>
+              <S.Placeholder />
+            </S.TopRow>
 
-          {bookDetail.is_sold && <S.SoldText>Vendido</S.SoldText>}
-          <S.Container>
-            <S.ImageContainer>
-              <S.ImageWrapper>
-                <Box flexDirection="column">
-                  <S.CoverWrapper>
-                    <S.StyledImg
-                      src={bookDetail.cover}
-                      alt="capa"
-                      effect="blur"
-                    />
-                    <h3>Capa</h3>
-                  </S.CoverWrapper>
-                </Box>
-
-                {bookDetail.back && (
+            {bookDetail.is_sold && <S.SoldText>Vendido</S.SoldText>}
+            <S.Container>
+              <S.ImageContainer>
+                <S.ImageWrapper>
                   <Box flexDirection="column">
-                    <S.StyledImg
-                      src={bookDetail.back}
-                      alt="contra-capa"
-                      effect="blur"
-                    />
-                    <h3>Contracapa</h3>
+                    <S.CoverWrapper>
+                      <S.StyledImg
+                        src={bookDetail.cover}
+                        alt="capa"
+                        effect="blur"
+                      />
+                      <h3>Capa</h3>
+                    </S.CoverWrapper>
                   </Box>
-                )}
-              </S.ImageWrapper>
-            </S.ImageContainer>
-            <S.InfoWrapper>
-              <S.DetailsTitle>Detalhes do livro:</S.DetailsTitle>
-              {infoDetails.map(({ text, description }) => {
-                if (!!text) {
-                  return (
-                    <S.InfoRow key={description}>
-                      <h4>{description}: </h4>
-                      <S.StyledText>{text}</S.StyledText>
-                    </S.InfoRow>
-                  );
-                }
-                return null;
-              })}
 
-              {!bookDetail.is_sold && (
-                <S.ReservationContainer>
-                  <ReservationForm bookId={bookDetail.id} />
-                </S.ReservationContainer>
-              )}
-            </S.InfoWrapper>
-          </S.Container>
-          {otherBooks && otherBooks.length > 0 && (
-            <>
-              <S.OthersTitle>Outros livros da mesma coleção:</S.OthersTitle>
-              <S.OthersWrapper>
-                {otherBooks.map((book) => (
-                  <S.OthersBookContainer key={book.id}>
-                    <S.BookLink to={`/book/${book.id}`}>
-                      <S.SmallImage src={book.cover} />
-                      <S.Paragraph>{book.title}</S.Paragraph>
-                    </S.BookLink>
-                  </S.OthersBookContainer>
-                ))}
-              </S.OthersWrapper>
-            </>
-          )}
-        </>
-      ) : (
-        <div>
-          <h1>Livro não encontrado</h1>
-        </div>
-      )}
-    </ScreenTemplate>
+                  {bookDetail.back && (
+                    <Box flexDirection="column">
+                      <S.StyledImg
+                        src={bookDetail.back}
+                        alt="contra-capa"
+                        effect="blur"
+                      />
+                      <h3>Contracapa</h3>
+                    </Box>
+                  )}
+                </S.ImageWrapper>
+              </S.ImageContainer>
+              <S.InfoWrapper>
+                <S.DetailsTitle>Detalhes do livro:</S.DetailsTitle>
+                {infoDetails.map(({ text, description }) => {
+                  if (!!text) {
+                    return (
+                      <S.InfoRow key={description}>
+                        <h4>{description}: </h4>
+                        <S.StyledText>{text}</S.StyledText>
+                      </S.InfoRow>
+                    );
+                  }
+                  return null;
+                })}
+
+                {!bookDetail.is_sold && (
+                  <S.ReservationContainer>
+                    <ReservationForm bookId={bookDetail.id} />
+                  </S.ReservationContainer>
+                )}
+              </S.InfoWrapper>
+            </S.Container>
+            {otherBooks && otherBooks.length > 0 && (
+              <>
+                <S.OthersTitle>Outros livros da mesma coleção:</S.OthersTitle>
+                <S.OthersWrapper>
+                  {otherBooks.map((book) => (
+                    <S.OthersBookContainer key={book.id}>
+                      <S.BookLink to={`/book/${book.id}`}>
+                        <S.SmallImage src={book.cover} />
+                        <S.Paragraph>{book.title}</S.Paragraph>
+                      </S.BookLink>
+                    </S.OthersBookContainer>
+                  ))}
+                </S.OthersWrapper>
+              </>
+            )}
+          </>
+        ) : (
+          <div>
+            <h1>Livro não encontrado</h1>
+          </div>
+        )}
+      </ScreenTemplate>
+    </>
   );
 };

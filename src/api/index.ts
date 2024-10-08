@@ -1,8 +1,12 @@
 import axios from "axios";
 
+const baseURL = true
+  ? "http://localhost:8000/"
+  : "https://homeserver.marioprada.me/";
+
 export const api = axios.create({
   // baseURL: process.env.REACT_APP_API_ROOT,
-  baseURL: "https://homeserver.marioprada.me/",
+  baseURL,
 });
 
 export const handleErrorResponse = (error: unknown) => {
