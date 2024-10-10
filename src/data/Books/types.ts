@@ -13,6 +13,7 @@ export type BookType = {
   cover: string;
   back?: string;
   is_sold: boolean;
+  category?: string;
 };
 
 export type BooksState = {

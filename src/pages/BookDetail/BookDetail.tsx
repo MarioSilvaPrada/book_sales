@@ -61,6 +61,10 @@ export const BookDetail = () => {
       text: bookDetail?.collection?.title,
     },
     {
+      description: "Categoria",
+      text: bookDetail?.category,
+    },
+    {
       description: "Preço",
       text: `${bookDetail?.price}€`,
     },
