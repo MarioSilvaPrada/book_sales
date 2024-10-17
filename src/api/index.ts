@@ -1,8 +1,5 @@
 import axios from "axios";
-
-const baseURL = true
-  ? "http://localhost:8000/"
-  : "https://homeserver.marioprada.me/";
+import { baseURL } from "./baseQuery";
 
 export const api = axios.create({
   // baseURL: process.env.REACT_APP_API_ROOT,
