@@ -1,6 +1,5 @@
 import { BookType } from "data/Books/types";
-import { api, handleErrorResponse } from "./";
-import { AxiosError } from "axios";
+import { api } from "./";
 
 export const getSingleBook = async (
   id: string
