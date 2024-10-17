@@ -17,24 +17,6 @@ export const getSingleBook = async (
   }
 };
 
-export type ReservationsParams = {
-  book: number;
-  name: string;
-  email: string;
-  phone?: string;
-  comment?: string;
-};
-export const reserveBook = async (
-  params: ReservationsParams
-): Promise<{ status: number } | AxiosError | string> => {
-  try {
-    const { status } = await api.post("library/reservations/", params);
-    return { status };
-  } catch (err) {
-    return handleErrorResponse(err);
-  }
-};
-
 export const getAllCollections = async (): Promise<any> => {
   try {
     const url = "library/collections/";

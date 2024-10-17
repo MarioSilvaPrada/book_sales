@@ -1,9 +1,6 @@
 import { ChangeEvent, useState, SyntheticEvent, FC, useEffect } from "react";
 import * as S from "./ReservationForm.style";
-import { useAppDispatch } from "store";
-import { sendReservation } from "data/Reservations/action";
-import { useSelector } from "react-redux";
-import { reservationSelector } from "data/Reservations/slice";
+import { useReserveBookMutation } from "data/Books/booksApi";
 type IProps = {
   bookId: number;
 };
@@ -16,9 +13,8 @@ const initialForm = {
 };
 
 export const ReservationForm: FC<IProps> = ({ bookId }) => {
-  const dispatch = useAppDispatch();
-  const { isSuccessful, errorMessage, loading } =
-    useSelector(reservationSelector);
+  const [reserveBook, { isLoading, isSuccess, isError }] =
+    useReserveBookMutation();
 
   const [form, setForm] = useState({
     ...initialForm,
@@ -34,33 +30,32 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
     });
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!form.name || !form.email) {
       alert("Por favor preencha o seu nome e email");
       return;
     }
-    dispatch(sendReservation({ ...form, book: bookId }));
+    await reserveBook({ ...form, book: bookId });
   };
 
   useEffect(() => {
-    if (isSuccessful) {
+    if (isSuccess) {
       setForm({ ...initialForm });
     }
-  }, [isSuccessful]);
+  }, [isSuccess]);
 
-  const validate = (key: string) => {
-    if (typeof errorMessage !== "string") {
-      return key in errorMessage.data;
+  useEffect(() => {
+    if (isError) {
+      alert("Ocorreu um erro ao enviar a mensagem. Por favor tente novamente");
     }
-    return false;
-  };
+  }, [isError]);
 
   const getSubmitValue = () => {
-    if (loading) {
+    if (isLoading) {
       return "A enviar mensagem...";
     }
-    if (isSuccessful) {
+    if (isSuccess) {
       return "A sua mensagem foi enviada com sucesso";
     }
     return "Reservar";
@@ -78,19 +73,16 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
           value={form.name}
           onChange={(e) => onChangeText(e, "name")}
           placeholder="O seu Nome *"
-          isInvalid={validate("name")}
         />
         <S.StyledInput
           value={form.email}
           onChange={(e) => onChangeText(e, "email")}
           placeholder="E-mail *"
-          isInvalid={validate("email")}
         />
         <S.StyledInput
           value={form.phone}
           onChange={(e) => onChangeText(e, "phone")}
           placeholder="Contacto telefónico"
-          isInvalid={validate("phone")}
         />
         <S.TextArea
           value={form.comment}
@@ -98,7 +90,7 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
           placeholder="Comentário"
         />
         <S.Submit
-          isSuccessful={isSuccessful}
+          isSuccessful={isSuccess}
           type="submit"
           value={getSubmitValue()}
         />

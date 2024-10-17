@@ -3,15 +3,12 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Box, ReservationForm, ScreenTemplate } from "components";
 import * as S from "./BookDetail.style";
-import { useAppDispatch } from "store";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { resetForm } from "data/Reservations/slice";
 import { useGetBookByIdQuery } from "data/Books/booksApi";
 import { useGetCollectionByIdQuery } from "data/Collections/collectionsApi";
 import { Helmet } from "react-helmet";
 
 export const BookDetail = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { key: keyLocation } = useLocation();
   const { id = "" } = useParams();
@@ -36,7 +33,6 @@ export const BookDetail = () => {
     } else {
       navigate(-1);
     }
-    dispatch(resetForm());
   };
 
   const infoDetails = [

@@ -34,7 +34,24 @@ export const booksApi = api
         }),
         providesTags: [BOOK_DETAIL_TAG],
       }),
+      reserveBook: build.mutation<
+        void,
+        {
+          book: number;
+          email: string;
+          name: string;
+          comment?: string;
+          phone?: string;
+        }
+      >({
+        query: (args) => ({
+          method: "POST",
+          url: "library/reservations/",
+          body: args,
+        }),
+      }),
     }),
   });
 
-export const { useGetBooksQuery, useGetBookByIdQuery } = booksApi;
+export const { useGetBooksQuery, useGetBookByIdQuery, useReserveBookMutation } =
+  booksApi;
