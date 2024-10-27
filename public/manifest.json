@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Livros PT",
+  "name": "Maior site de Portugal de venda de livros em segunda mão.",
   "icons": [
     {
       "src": "favicon.ico",
