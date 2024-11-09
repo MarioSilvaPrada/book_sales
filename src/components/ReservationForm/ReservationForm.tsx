@@ -9,6 +9,7 @@ const initialForm = {
   name: "",
   email: "",
   phone: "",
+  address: "",
   comment: "",
 };
 
@@ -32,8 +33,8 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email) {
-      alert("Por favor preencha o seu nome e email");
+    if (!form.name || !form.email || !form.address) {
+      alert("Por favor preencha os campos obrigatórios (Nome, email e morada)");
       return;
     }
     await reserveBook({ ...form, book: bookId });
@@ -78,6 +79,11 @@ export const ReservationForm: FC<IProps> = ({ bookId }) => {
           value={form.email}
           onChange={(e) => onChangeText(e, "email")}
           placeholder="E-mail *"
+        />
+        <S.TextArea
+          value={form.address}
+          onChange={(e) => onChangeText(e, "address")}
+          placeholder="Morada de entrega *"
         />
         <S.StyledInput
           value={form.phone}
