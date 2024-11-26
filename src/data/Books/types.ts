@@ -14,6 +14,7 @@ export type BookType = {
   back?: string;
   is_sold: boolean;
   category?: string;
+  synopsis?: string;
 };
 
 export type BooksState = {

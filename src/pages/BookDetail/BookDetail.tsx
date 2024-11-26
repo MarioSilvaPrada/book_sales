@@ -126,6 +126,9 @@ export const BookDetail = () => {
                     </Box>
                   )}
                 </S.ImageWrapper>
+                <S.BookSynopsys>
+                  <p>{bookDetail.synopsis}</p>
+                </S.BookSynopsys>
               </S.ImageContainer>
               <S.InfoWrapper>
                 <S.DetailsTitle>Detalhes do livro:</S.DetailsTitle>

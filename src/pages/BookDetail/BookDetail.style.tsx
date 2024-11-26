@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.colors.background.dark};
@@ -77,6 +77,8 @@ export const StyledText = styled.p`
 
 export const ImageContainer = styled.div`
   width: 50%;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 920px) {
     width: 100%;
   }
@@ -165,4 +167,10 @@ export const OthersTitle = styled.p`
   @media (max-width: 920px) {
     font-size: 1.5rem;
   }
+`;
+
+export const BookSynopsys = styled.div`
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: left;
 `;
