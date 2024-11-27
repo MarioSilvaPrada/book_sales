@@ -1,11 +1,14 @@
 import { api } from "api/api";
-import { CollectionResponse, CollectionType } from "./types";
+import { CategoryResponse, CollectionResponse, CollectionType } from "./types";
 
 export const COLLECTIONS_TAG = "Collections";
 export const COLLECTION_DETAIL_TAG = "CollectionDetails";
+export const CATEGORY_TAG = "Categories";
 
 export const collectionsApi = api
-  .enhanceEndpoints({ addTagTypes: [COLLECTIONS_TAG, COLLECTION_DETAIL_TAG] })
+  .enhanceEndpoints({
+    addTagTypes: [COLLECTIONS_TAG, COLLECTION_DETAIL_TAG, CATEGORY_TAG],
+  })
   .injectEndpoints({
     endpoints: (build) => ({
       getCollections: build.query<CollectionResponse, void>({
@@ -22,8 +25,18 @@ export const collectionsApi = api
         }),
         providesTags: [COLLECTIONS_TAG, COLLECTION_DETAIL_TAG],
       }),
+      getCategories: build.query<CategoryResponse, void>({
+        query: () => ({
+          method: "GET",
+          url: "library/categories/",
+        }),
+        providesTags: [CATEGORY_TAG],
+      }),
     }),
   });
 
-export const { useGetCollectionsQuery, useGetCollectionByIdQuery } =
-  collectionsApi;
+export const {
+  useGetCollectionsQuery,
+  useGetCollectionByIdQuery,
+  useGetCategoriesQuery,
+} = collectionsApi;

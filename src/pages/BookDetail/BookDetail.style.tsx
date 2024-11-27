@@ -173,4 +173,8 @@ export const BookSynopsys = styled.div`
   font-size: 0.9rem;
   margin-top: 0.5rem;
   text-align: left;
+
+  @media (max-width: 900px) {
+    font-size: 1.2rem;
+  }
 `;

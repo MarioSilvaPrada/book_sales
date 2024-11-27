@@ -1,52 +1,60 @@
 import { FC } from "react";
 import * as S from "./ScreenTemplate.style";
-import { SearchBar, Pagination, Spinner, CollectionFilter } from "components";
+import { SearchBar, Pagination, Spinner } from "components";
 import { useSelector } from "react-redux";
-import { booksSelector } from "data/Books/slice";
+import { booksSelector, setIsFilterOpen } from "data/Books/slice";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useGetCollectionsQuery } from "data/Collections/collectionsApi";
+import { Link, useSearchParams } from "react-router-dom";
+import { FilterIcon } from "assets/icons/filter";
+import { useAppDispatch } from "store";
+import { Filters } from "components/Filters";
+import logo from "../../assets/images/logo192.png";
 
 type IProps = {
   children: React.ReactNode;
   isLoadingBooks?: boolean;
-  isLoadingCollections?: boolean;
   searchActive?: boolean;
   currentPage?: string;
-  currentCollectionId?: string;
-  addFilter?: boolean;
   paginationDisabled?: boolean;
-  searchField?: string;
-  collectionId?: string;
 };
 export const ScreenTemplate: FC<IProps> = ({
   children,
   isLoadingBooks,
   searchActive,
   currentPage = 1,
-  currentCollectionId,
-  addFilter,
   paginationDisabled,
-  collectionId,
-  searchField,
 }) => {
-  const { count } = useSelector(booksSelector);
+  const dispatch = useAppDispatch();
+  const { count, isFilterOpen } = useSelector(booksSelector);
+  const [searchParams] = useSearchParams();
+
+  const hasParams = searchParams.toString().length > 0;
+
+  const onFilterPress = () => {
+    dispatch(setIsFilterOpen(!isFilterOpen));
+  };
 
   return (
     <S.BackgroundColor>
+      <Filters />
       <S.Background>
-        <TopBar>
-          {searchActive && <SearchBar />}
-          {(!!collectionId || !!searchField) && (
-            <RemoveFilterBtn to="/">Remover filtro</RemoveFilterBtn>
-          )}
-        </TopBar>
-
-        {addFilter && (
-          <CollectionFilterComponent
-            currentCollectionId={currentCollectionId}
-          />
+        {searchActive && (
+          <TopBar>
+            <LogoWrapper>
+              <StyledImg src={logo} alt="logo" />
+              <p>LivrosPT</p>
+            </LogoWrapper>
+            <SearchBar />
+            {hasParams && (
+              <RemoveFilterBtn to="/">Remover filtro</RemoveFilterBtn>
+            )}
+            <FilterWrapper onClick={onFilterPress}>
+              <FilterIcon />
+              Filtros
+            </FilterWrapper>
+          </TopBar>
         )}
+
         {!paginationDisabled && (
           <Pagination
             total={count}
@@ -75,25 +83,27 @@ export const ScreenTemplate: FC<IProps> = ({
   );
 };
 
-type CollectionFilterProps = {
-  currentCollectionId?: string;
-};
+const LogoWrapper = styled.div`
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 0.8rem;
 
-const CollectionFilterComponent = ({
-  currentCollectionId,
-}: CollectionFilterProps) => {
-  const { data, isLoading } = useGetCollectionsQuery();
-  if (isLoading) {
-    return <Spinner />;
+  @media (max-width: 900px) {
+    font-size: 1.3rem;
   }
-  if (!data) return <h2>Sem filtros disponíveis</h2>;
-  return (
-    <CollectionFilter
-      currentCollectionId={currentCollectionId}
-      collectionResponse={data}
-    />
-  );
-};
+`;
+
+const StyledImg = styled.img`
+  width: 4rem;
+  background: white;
+  border-radius: 10rem;
+  padding: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  @media (max-width: 900px) {
+    width: 6rem;
+  }
+`;
 
 const RemoveFilterBtn = styled(Link)`
   text-decoration: none;
@@ -101,21 +111,37 @@ const RemoveFilterBtn = styled(Link)`
   border: none;
   padding: 0.4rem;
   border-radius: 0.5rem;
+  font-size: 0.7rem;
+  width: 8rem;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
   @media (max-width: 880px) {
     margin-top: 1rem;
+    font-size: 1.2rem;
+    width: 10rem;
   }
 `;
 
 const TopBar = styled.div`
   display: flex;
   align-items: center;
+  gap: 1rem;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 1rem;
 
   @media (max-width: 880px) {
     flex-direction: column;
+  }
+`;
+
+const FilterWrapper = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  @media (max-width: 900px) {
+    align-self: flex-end;
   }
 `;

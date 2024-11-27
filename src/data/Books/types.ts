@@ -18,14 +18,10 @@ export type BookType = {
 };
 
 export type BooksState = {
-  loading: boolean;
-  hasErrors: boolean;
-  errorMessage: string;
-  books: BookType[];
-  bookDetail: BookType | null;
-  nextLink: string | null;
-  previousLink: string | null;
   count: number;
+  isFilterOpen: boolean;
+  filterCategories: number[];
+  filterCollections: number[];
 };
 
 export type BooksResponseType = {

@@ -13,12 +13,14 @@ export const booksApi = api
         {
           page?: string;
           search?: string;
+          collection?: string[];
+          category?: string[];
         }
       >({
-        query: ({ page, search }) => ({
+        query: ({ page, search, collection, category }) => ({
           method: "GET",
           url: "library/books/",
-          params: { page, search },
+          params: { page, search, collection, category },
         }),
         providesTags: [BOOKS_TAG],
       }),

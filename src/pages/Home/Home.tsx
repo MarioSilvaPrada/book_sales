@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { booksSelector, setBookCount } from "data/Books/slice";
 import { BookCard, Grid, ScreenTemplate } from "components";
 import { useGetBooksQuery } from "data/Books/booksApi";
-import { useGetCollectionByIdQuery } from "data/Collections/collectionsApi";
 export const Home = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
@@ -14,49 +13,38 @@ export const Home = () => {
 
   const searchField = searchParams.get("search") || undefined;
   const page = searchParams.get("page") || undefined;
-  const collectionId = searchParams.get("collectionId") || "";
+  const collection = searchParams.getAll("collection") || "";
+  const categories = searchParams.getAll("category") || "";
 
   const { data, isLoading, isFetching } = useGetBooksQuery({
     search: searchField,
     page: page,
+    collection: Boolean(collection?.length) ? collection : undefined,
+    category: Boolean(categories?.length) ? categories : undefined,
   });
-
-  const {
-    data: collection,
-    isLoading: loadingCollection,
-    isFetching: fetchingCollection,
-  } = useGetCollectionByIdQuery({ id: collectionId });
 
   const { results: books } = data || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [searchParams, collectionId, page, searchField]);
+  }, [searchParams, page, searchField]);
 
   useEffect(() => {
-    if (data && count === 0) {
+    if (data?.count) {
       dispatch(setBookCount(data.count));
     }
   }, [data, count, dispatch]);
 
   return (
     <ScreenTemplate
-      isLoadingBooks={isLoading || isFetching || fetchingCollection}
-      isLoadingCollections={loadingCollection}
+      isLoadingBooks={isLoading || isFetching}
       currentPage={page}
-      currentCollectionId={collectionId}
       searchActive
-      addFilter
-      searchField={searchField}
-      collectionId={collectionId}
-      paginationDisabled={!!collectionId}
     >
       <Grid>
-        {collectionId
-          ? collection?.books_collection?.map((book) => (
-              <BookCard key={book.id} book={book} />
-            ))
-          : books?.map((book) => <BookCard key={book.id} book={book} />)}
+        {books?.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
       </Grid>
     </ScreenTemplate>
   );

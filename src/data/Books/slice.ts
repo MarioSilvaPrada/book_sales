@@ -3,34 +3,42 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../";
 import { BooksState } from "./types";
 export const initialState: BooksState = {
-  loading: false,
-  hasErrors: false,
-  errorMessage: "",
-  books: [],
-  bookDetail: null,
-  nextLink: null,
-  previousLink: null,
   count: 0,
+  isFilterOpen: false,
+  filterCategories: [],
+  filterCollections: [],
 };
 
 const booksSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
-    isLoading: (state, action) => {
-      state.loading = action.payload;
-    },
     setBookCount: (state, action: PayloadAction<number>) => {
       state.count = action.payload;
     },
-    resetErrors: (state) => {
-      state.hasErrors = false;
-      state.errorMessage = "";
+
+    setIsFilterOpen: (state, action: PayloadAction<boolean>) => {
+      state.isFilterOpen = action.payload;
+    },
+    setFilter: (
+      state,
+      action: PayloadAction<{
+        field: "categories" | "collection";
+        values: number[];
+      }>
+    ) => {
+      if (action.payload.field === "categories") {
+        state.filterCategories = action.payload.values;
+      }
+
+      if (action.payload.field === "collection") {
+        state.filterCollections = action.payload.values;
+      }
     },
   },
 });
 
-export const { isLoading, resetErrors, setBookCount } = booksSlice.actions;
+export const { setBookCount, setIsFilterOpen, setFilter } = booksSlice.actions;
 
 export const booksSelector = (state: RootState) => state.books;
 

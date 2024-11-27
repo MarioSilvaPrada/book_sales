@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Box } from "components";
 
 export const Container = styled(Box)`
-  width: 70%;
+  width: 100%;
+  margin: 0 5rem;
 `;
 
 export const StyledForm = styled.form`
