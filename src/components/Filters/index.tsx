@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
-  //@ts-ignore
+  //eslint-disable-next-line
   const [_, setSearchParams] = useSearchParams();
   const [isOpened, setIsOpened] = useState({
     collections: false,
