@@ -5,7 +5,7 @@ import {
   useGetCategoriesQuery,
   useGetCollectionsQuery,
 } from "data/Collections/collectionsApi";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "store";
@@ -14,8 +14,6 @@ import styled from "styled-components";
 export const Filters = () => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const collectionsURL = searchParams.getAll("collection") || "";
-  const categoriesURL = searchParams.getAll("category") || "";
   const [isOpened, setIsOpened] = useState({
     collections: false,
     categories: false,
