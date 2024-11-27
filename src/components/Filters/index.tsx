@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 export const Filters = () => {
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
   const [isOpened, setIsOpened] = useState({
     collections: false,
     categories: false,
